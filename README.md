@@ -137,7 +137,7 @@ You can now use the `heroku` CLI program - try running `heroku apps` to confirm 
 
         - Acceptance Criteria:
 
-            - The application must be successfully deployed 
+            - The application must be successfully deployed
 
 ## Hypothesis and how to validate?
 
