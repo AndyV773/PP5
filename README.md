@@ -1,4 +1,4 @@
-# ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Stock Analysis: Phoenix Group Holdings plc (PHNX 2010 - 2015)
 
 ## Template Instructions
 
@@ -107,7 +107,6 @@ You can now use the `heroku` CLI program - try running `heroku apps` to confirm 
             - All missing or null values in the dataset must be identified
             - Missing values are imputed
             - Visualize the effect of cleaning
-            - Split the data in to train and test sets
 
 - Model Training, Optimization, and Validation - Business Requirements 2, 3 & 4
 
@@ -141,7 +140,7 @@ You can now use the `heroku` CLI program - try running `heroku apps` to confirm 
 
 ## Hypothesis and how to validate?
 
-1. Correlation between key market variables (such as open, close, volume, and lag features) and price movements is strong enough to identify predictive relationships that can inform risk assessment and improve the accuracy of price predictions
+1. Correlation patterns between date or volume are strong enough to identify predictive relationships and price movement in features: such as open, close, and other related indicators. Enhancing risk assessment and improving price prediction accuracy
 
 2. Historical stock data, including key features like price and volume, can be used in a binary classification model to predict whether tomorrow's average price will be higher or lower than today’s, achieving an accuracy of at least 70%
 
