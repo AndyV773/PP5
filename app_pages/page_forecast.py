@@ -2,20 +2,30 @@ import streamlit as st
 import pandas as pd
 from src.data_management import load_stock_data, load_pkl_file
 from src.machine_learning.predictive_analysis_ui import (
-    predict_target)
+    predict_target,
+    predict_tomorrows_avg)
 
 
-def page_prospect_body():
+def page_forecast_body():
+
+    df = load_stock_data(0)
+    df = df[['close', 'open', 'pre_close', 'high', 'tomorrows_average']].copy()
 
     # load predict target files
     version = 'v1'
-    target_pipe_dc_fe = load_pkl_file(
-        f'outputs/ml_pipeline/predict_target/{version}'
-        '/clf_pipeline_data_cleaning_feat_eng.pkl')
     target_pipe_model = load_pkl_file(
         f"outputs/ml_pipeline/predict_target/{version}/clf_pipeline_model.pkl")
     target_features = (pd.read_csv(f"outputs/ml_pipeline/predict_target/"
                                    f"{version}/X_train.csv").columns.to_list())
+
+    # load predict tomorrow's average files
+    version = 'v1'
+    tomorrows_avg_pipe = load_pkl_file(
+        f"outputs/ml_pipeline/predict_tomorrows_avg/"
+        f"{version}/regressor_pipeline.pkl")
+    tomorrows_avg_features = (pd.read_csv
+                              (f"outputs/ml_pipeline/predict_tomorrows_avg/"
+                               f"{version}/X_train.csv").columns.to_list())
 
     st.write("### Prospect Predictometer Interface")
     st.info(
@@ -27,16 +37,28 @@ def page_prospect_body():
         "price stability, as well as signal high-risk volatility, "
         "should be identified and presented"
     )
+
+    if st.checkbox("Inspect Exploratory Stock Data"):
+        st.write(
+            f"* The dataset has {df.shape[0]} "
+            f"rows and {df.shape[1]} columns")
+
+        st.write(df[3000:3020])
+
     st.write("---")
 
     # Generate Live Data
-    # check_variables_for_UI(tenure_features, churn_features, cluster_features)
+    # check_variables_for_UI(tenure_features,
+    #                        target_features, cluster_features)
     X_live = DrawInputsWidgets()
 
     # predict on live data
     if st.button("Run Predictive Analysis"):
         predict_target(X_live, target_features,
-                       target_pipe_dc_fe, target_pipe_model)
+                       target_pipe_model)
+
+        predict_tomorrows_avg(X_live, tomorrows_avg_features,
+                              tomorrows_avg_pipe)
 
 
 def check_variables_for_UI(target_features):
@@ -62,7 +84,7 @@ def DrawInputsWidgets():
     percentageMin, percentageMax = 0.4, 2.0
 
 # we create input widgets only for 6 features
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
 
     # We are using these features to feed the ML pipeline - values
     # copied from check_variables_for_UI() result
@@ -97,6 +119,16 @@ def DrawInputsWidgets():
 
     with col3:
         feature = "pre_close"
+        st_widget = st.number_input(
+            label=feature,
+            min_value=df[feature].min()*percentageMin,
+            max_value=df[feature].max()*percentageMax,
+            value=df[feature].median()
+        )
+    X_live[feature] = st_widget
+
+    with col4:
+        feature = "high"
         st_widget = st.number_input(
             label=feature,
             min_value=df[feature].min()*percentageMin,
