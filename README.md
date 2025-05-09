@@ -1,6 +1,6 @@
-# Stock Analysis: Phoenix Group Holdings plc (PHNX 2010 - 2015)
+# Stock Analysis: Phoenix Group Holdings plc (PHNX 2010 - 2025)
 
-## Template Instructions
+## The Predictometer
 
 Welcome,
 
@@ -8,49 +8,63 @@ This is the Code Institute student template for the bring your own data project 
 
 You can safely delete the Template Instructions section of this README.md file and modify the remaining paragraphs for your own project. Please do read the Template Instructions at least once, though! It contains some important information about the IDE and the extensions we use.
 
-## How to use this repo
-
-1. Use this template to create your GitHub project repo
-
-1. In your newly created repo click on the green Code button.
-
-1. Then, from the Codespaces tab, click Create codespace on main.
-
-1. Wait for the workspace to open. This can take a few minutes.
-
-1. Open a new terminal and `pip3 install -r requirements.txt`
-
-1. Open the jupyter_notebooks directory, and click on the notebook you want to open.
-
-1. Click the kernel button and choose Python Environments.
-
-Note that the kernel says Python 3.12.1 as it inherits from the workspace, so it will be Python-3.12.1 as installed by Codespaces. To confirm this, you can use `! python --version` in a notebook code cell.
-
-## Cloud IDE Reminders
-
-To log into the Heroku toolbelt CLI:
-
-1. Log in to your Heroku account and go to _Account Settings_ in the menu under your avatar.
-2. Scroll down to the _API Key_ and click _Reveal_
-3. Copy the key
-4. In the terminal, run `heroku_config`
-5. Paste in your API key when asked
-
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
-
 ## Dataset Content
 
-- Describe your dataset. Choose a dataset of reasonable size to avoid exceeding the repository's maximum size and to have a shorter model training time. If you are doing an image recognition project, we suggest you consider using an image shape that is 100px × 100px or 50px × 50px, to ensure the model meets the performance requirement but is smaller than 100Mb for a smoother push to GitHub. A reasonably sized image set is ~5000 images, but you can choose ~10000 lines for numeric or textual data.
+- The dataset is sourced from [yfinance](https://ranaroussi.github.io/yfinance/), and is publicly available
+
+- The dataset, based on Phoenix Group Holdings plc from 2010 to 2025, consists of 3,788 rows and 8 columns, representing the daily price movement. Each row contains the date/time, open, high, low, close, volume, dividends, and stock splits
+
+| Variable     | Values                                                 | Information                                                                                                                                                                                                                       |
+| ------------ | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| date         | 2010-01-04 00:00:00+00:00 to 2024-12-31 00:00:00+00:00 | The date represents a timestamp in datetime format, ranging from January 4, 2010, to December 31, 2024. The format includes the year, month, and day (YYYY-MM-DD), followed by the time (midnight) and the UTC time zone (+00:00) |
+| open         | 302.94 - 797.58                                        | open represents the opening price. The first traded price of the day                                                                                                                                                              |
+| high         | 310.06 - 821.91                                        | high represents the highest price of the day                                                                                                                                                                                      |
+| low          | 300.35 - 791.94                                        | low represents the lowest price of the day                                                                                                                                                                                        |
+| close        | 300.35 - 800.31                                        | close represents the closing price. The last traded price of the day                                                                                                                                                              |
+| volume       | 0 - 37073433                                           | volume represents the total number of shares traded (bought and sold) during the day                                                                                                                                              |
+| dividends    | 0 - 26.65                                              | dividends represent the cash payments or stock distributions that a company gives to its shareholders as a portion of its profits                                                                                                 |
+| stock splits | 0                                                      | stock splits represent a company's decision to increase the number of shares by issuing more shares to existing shareholders                                                                                                      |
+
+## Exploratory Features and Targets
+
+To analyze business requirements and identify patterns in the data, we performed feature extraction, which included adding lag features from previous price values and extracting components from the date values. Before doing so, we needed to impute any missing data to prevent gaps from affecting other columns. Upon inspection, there was no missing data, but the Volume column contained values of 0. To handle this, we applied Pandas forward fill (ffill) to propagate the last valid observation forward
+
+Next, we extracted the day of the week and the year from the Date column, after which we dropped the original Date column. We then created two days of lag features, which introduced two rows with NaN values at the start of the dataset. These rows were subsequently dropped. Additionally, to construct the classification and regression targets, we performed a shift of future values, which resulted in one NaN row at the end of the dataset, which we also removed. This brought the total number of dropped rows to three
+
+Finally, we decided to drop the Dividends and Stock Splits columns as they held no meaningful value for the analysis. As a result, our stock dataset now consists of 3,785 rows and 22 columns
+
+| Variable          | Values                                               | Information                                                                          |
+| ----------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| year              | 2010 to 2024                                         |                                                                                      |
+| weekday           | monday, tuesday, wednesday, thursday, friday, sunday |                                                                                      |
+| open              | 302.94 - 797.58                                      | open represents the opening price. The first traded price of the day                 |
+| high              | 310.06 - 821.91                                      | high represents the highest price of the day                                         |
+| low               | 300.35 - 791.94                                      | low represents the lowest price of the day                                           |
+| close             | 300.35 - 800.31                                      | close represents the closing price. The last traded price of the day                 |
+| volume            | 34 - 37073433                                        | volume represents the total number of shares traded (bought and sold) during the day |
+| pre_open          | 302.94 - 797.58                                      |                                                                                      |
+| pre_open_2        | 302.94 - 797.58                                      |                                                                                      |
+| pre_high          | 310.06 - 821.91                                      |                                                                                      |
+| pre_high_2        | 310.06 - 821.91                                      |                                                                                      |
+| pre_low           | 300.35 - 791.94                                      |                                                                                      |
+| pre_low_2         | 300.35 - 791.94                                      |                                                                                      |
+| pre_close         | 300.35 - 800.31                                      |                                                                                      |
+| pre_close_2       | 300.35 - 800.31                                      |                                                                                      |
+| pre_vol           | 34 - 37073433                                        |                                                                                      |
+| pre_vol_2         | 34 - 37073433                                        |                                                                                      |
+| pre_average       | 302.94 - 797.87                                      |                                                                                      |
+| pre_average_2     | 302.94 - 797.87                                      |                                                                                      |
+| average           | 302.94 - 797.87                                      |                                                                                      |
+| tomorrows_average | 302.94 - 797.87                                      |                                                                                      |
+| target            | 0 - 1                                                |                                                                                      |
 
 ## Business Requirements
 
-1. To assess the relationships and potential risks in stock performance data by conducting correlation analysis and visualizing key variables. This will help identify the most relevant factors influencing price movements and trends, supporting informed decision-making and future stock behavior predictions
+BR1: The client wants to uncover key variables or indicators that are most predictive of whether the stock price will go up or down the next trading day
 
-2. To build a binary classification model that predicts whether tomorrow's average price (the mean of the open and close) will be higher or lower than today's, aiming for a classification accuracy of at least 70%
+BR2: The client is looking to have a model developed that can generate daily predictions, enabling more informed decision-making, supporting automated trading strategies, and incorporating risk assessment to evaluate potential losses and market volatility
 
-3. To develop a regression model that forecasts tomorrow's average price (mean of open and close), and use this forecast to determine the directional change relative to today’s average price
-
-4. To identify meaningful patterns, structures, or market regimes in historical price and volume data using unsupervised learning techniques, such as clustering
+BR3: The client requires a dashboard that allows them to visualize key information, monitor daily predictions, and interact with data to support day-to-day decision-making
 
 ## Agile Methodology
 
@@ -65,78 +79,78 @@ You can now use the `heroku` CLI program - try running `heroku apps` to confirm 
 
 ### User Stories
 
-- Data Collection and Information Gathering - Business Requirements 1, 2, 3 & 4
+- Data Collection and Information Gathering - Business Requirements 1, 2
 
-    - As a developer, I want to import historical stock data from an external data source into a Jupyter Notebook, so that I can conduct a thorough analysis of the dataset
+  - As a developer, I want to import historical stock data from an external data source into a Jupyter Notebook, so that I can conduct a thorough analysis of the dataset
 
-        - Acceptance Criteria:
+    - Acceptance Criteria:
 
-            - The stock dataset is successfully downloaded from Yahoo Finance
-            - Stock data is successfully save to CSV format
+      - The stock dataset is successfully downloaded from Yahoo Finance
+      - Stock data is successfully save to CSV format
 
-- Data Study and Visualization - Business Requirement 1
+- Data Study and Visualization - Business Requirement 1, 3
 
-    - As a developer, I want to visualize the dataset to identify usable information and assess missing values, So that I can better prepare the data for analysis and ensure quality before modeling
+  - As a developer, I want to visualize the dataset to identify usable information and assess missing values, So that I can better prepare the data for analysis and ensure quality before modeling
 
-        - Acceptance Criteria:
+    - Acceptance Criteria:
 
-            - A data profile report must be generated
-            - Visualize missing data
-    
-    - As a developer, I want to extract meaningful features and define the target variable, So that the data is ready for supervised learning and exploratory analysis
+      - A data profile report must be generated
+      - Visualize missing data
 
-        - Acceptance Criteria:
+  - As a developer, I want to extract meaningful features and define the target variable, So that the data is ready for supervised learning and exploratory analysis
 
-            - Extract features for exploratory analysis
-            - Define the target variable for supervised learning
-    
-    - As a developer, I want to visualize the correlation and predictive power of all features using heatmaps, So that I can identify patterns and relationships between variables that may inform model design
+    - Acceptance Criteria:
 
-        - Acceptance Criteria:
+      - Extract features for exploratory analysis
+      - Define the target variable for supervised learning
 
-            - Analysis Correlation and PPS with a heat map
-            - Visualizations should demonstrate the effect of cleaning
+  - As a developer, I want to visualize the correlation and predictive power of all features using heatmaps, So that I can identify patterns and relationships between variables that may inform model design
 
-- Data Cleaning, and Preparation - Business Requirements 2, 3 & 4
+    - Acceptance Criteria:
 
-    - As a developer, I want to implement a robust data cleaning process so that I can ensure the dataset is accurate, reliable, and of high quality
+      - Analysis Correlation and PPS with a heat map
+      - Visualizations should demonstrate the effect of cleaning
 
-        - Acceptance Criteria:
+- Data Cleaning, and Preparation - Business Requirements 1, 2
 
-            - Extract features and target data
-            - All missing or null values in the dataset must be identified
-            - Missing values are imputed
-            - Visualize the effect of cleaning
+  - As a developer, I want to implement a robust data cleaning process so that I can ensure the dataset is accurate, reliable, and of high quality
 
-- Model Training, Optimization, and Validation - Business Requirements 2, 3 & 4
+    - Acceptance Criteria:
 
-    - As a developer, I want to evaluate the performance of the predictive model so that I can ensure the reliability and accuracy of its predictions
+      - Extract features and target data
+      - All missing or null values in the dataset must be identified
+      - Missing values are imputed
+      - Visualize the effect of cleaning
 
-        - Acceptance Criteria:
+- Model Training, Optimization, and Validation - Business Requirements 2
 
-            - The predictive model must be evaluated to ensure reliability and accuracy of its predictions
-    
-    - As a developer I want to measure the model performance so that I can have reliable results with high predictive power
+  - As a developer, I want to evaluate the performance of the predictive model so that I can ensure the reliability and accuracy of its predictions
 
-        - Acceptance Criteria:
+    - Acceptance Criteria:
 
-            - Model evaluation metrics must be calculated (e.g., accuracy, precision, recall, F1-score for classification; RMSE, MAE, R² for regression)
+      - The predictive model must be evaluated to ensure reliability and accuracy of its predictions
 
-- Dashboard Planning, Design, and Development - Business Requirements 1, 2, 3 & 4
+  - As a developer I want to measure the model performance so that I can have reliable results with high predictive power
 
-    - As a client, I want to access the Streamlit landing page so that I can quickly gain an overview of the project
+    - Acceptance Criteria:
 
-        - Acceptance Criteria:
+      - Model evaluation metrics must be calculated (e.g., accuracy, precision, recall, F1-score for classification; RMSE, MAE, R² for regression)
 
-            - The client should be able to quickly gain an overview of the project through the Streamlit landing page
+- Dashboard Planning, Design, and Development - Business Requirements 3
 
-- Dashboard Deployment and Release - Business Requirements 1, 2, 3 & 4
+  - As a client, I want to access the Streamlit landing page so that I can quickly gain an overview of the project
 
-    - As a developer, I want to initiate the deployment process of my application on Render, or Heroku at an early stage so that I can conduct end-to-end manual deployment testing from the outset
+    - Acceptance Criteria:
 
-        - Acceptance Criteria:
+      - The client should be able to quickly gain an overview of the project through the Streamlit landing page
 
-            - The application must be successfully deployed
+- Dashboard Deployment and Release - Business Requirements 3
+
+  - As a developer, I want to initiate the deployment process of my application on Render, or Heroku at an early stage so that I can conduct end-to-end manual deployment testing from the outset
+
+    - Acceptance Criteria:
+
+      - The application must be successfully deployed
 
 ## Hypothesis and how to validate?
 
@@ -155,6 +169,17 @@ You can now use the `heroku` CLI program - try running `heroku apps` to confirm 
 ## ML Business Case
 
 - In the previous bullet, you potentially visualized an ML task to answer a business requirement. You should frame the business case using the method we covered in the course
+
+## CRISP-DM
+
+| Process                | Description                                                                                                                                                                     |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Business Understanding | Understand the client's objectives and business requirements, including predictive modeling, risk assessment, and interactive dashboard visualization                           |
+| Data Understanding     | Collect and analyze historical stock data for Phoenix Group Holdings plc (PHNX) from 2010 to 2025, identify key variables, and evaluate data quality and completeness           |
+| Data Preparation       | Clean, impute, and engineer features, including lag features, date components, and necessary transformations. Handle missing data and optimize the dataset for modeling         |
+| Modeling               | Research and build predictive models to generate daily stock price forecasts, assess risk, and identify key indicators of market movement. Optimize for accuracy and robustness |
+| Evaluation             | Evaluate model performance against business requirements, including risk assessment and prediction accuracy. Validate results with cross-validation and error analysis          |
+| Deployment             | Develop and deploy an interactive dashboard that enables the client to visualize predictions, monitor risk, and interact with real-time data for informed decision-making       |
 
 ## Dashboard Design
 

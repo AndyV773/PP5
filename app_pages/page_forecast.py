@@ -27,7 +27,7 @@ def page_forecast_body():
                               (f"outputs/ml_pipeline/predict_tomorrows_avg/"
                                f"{version}/X_train.csv").columns.to_list())
 
-    st.write("### Prospect Predictometer Interface")
+    st.write("### Forecast Predictometer Interface")
     st.info(
         "* The client is interested in determining whether tomorrow's "
         "average price will be higher or lower compared to today's price. "
@@ -38,18 +38,17 @@ def page_forecast_body():
         "should be identified and presented"
     )
 
-    if st.checkbox("Inspect Exploratory Stock Data"):
+    if st.checkbox("Stock Data"):
         st.write(
             f"* The dataset has {df.shape[0]} "
             f"rows and {df.shape[1]} columns")
 
-        st.write(df[3000:3020])
+        st.write(df)
 
     st.write("---")
 
     # Generate Live Data
-    # check_variables_for_UI(tenure_features,
-    #                        target_features, cluster_features)
+    # check_variables_for_UI(target_features) tomorrows_avg_features
     X_live = DrawInputsWidgets()
 
     # predict on live data
@@ -65,7 +64,7 @@ def check_variables_for_UI(target_features):
     import itertools
 
     # The widgets inputs are the features used in all
-    # pipelines (tenure, churn, cluster)
+    # pipelines (classification, regression, cluster)
     # We combine them only with unique values
     combined_features = set(
         list(
@@ -83,12 +82,12 @@ def DrawInputsWidgets():
     df = load_stock_data(0)
     percentageMin, percentageMax = 0.4, 2.0
 
-# we create input widgets only for 6 features
+    # we create input widgets only for 4 features
     col1, col2, col3, col4 = st.columns(4)
 
     # We are using these features to feed the ML pipeline - values
     # copied from check_variables_for_UI() result
-    # {"close","open","pre_close"}
+    # {"close","open","pre_close"} {"high"}
 
     # create an empty DataFrame, which will be the live data
     X_live = pd.DataFrame([], index=[0])

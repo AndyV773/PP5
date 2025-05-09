@@ -25,7 +25,7 @@ def page_data_study_body():
 
     # inspect data
     if st.checkbox("Inspect Phoenix Group Holdings "
-                   "plc (PHNX 2010 - 2015) Stock Data"):
+                   "plc (PHNX 2010 - 2025) Stock Data"):
         st.write(
             f"* The dataset has {df.shape[0]} rows and {df.shape[1]} columns, "
             f"find below the first 10 rows.")
