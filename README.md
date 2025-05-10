@@ -60,7 +60,7 @@ Finally, we decided to drop the Dividends and Stock Splits columns as they held 
 
 ## Business Requirements
 
-BR1: The client wants to uncover key variables or indicators that are most predictive of whether the stock price will go up or down the next trading day
+BR1: The client wants to uncover key market indicators that are most predictive of whether the stock price will go up or down the next trading day
 
 BR2: The client is looking to have a model developed that can generate daily predictions, enabling more informed decision-making, supporting automated trading strategies, and incorporating risk assessment to evaluate potential losses and market volatility
 
@@ -154,7 +154,7 @@ BR3: The client requires a dashboard that allows them to visualize key informati
 
 ## Hypothesis and how to validate?
 
-1. Correlation patterns between date or volume are strong enough to identify predictive relationships and price movement in features: such as open, close, and other related indicators. Enhancing risk assessment and improving price prediction accuracy
+1. The suspect that correlation patterns between date or volume and key market indicators, are strong enough to identify predictive relationships
 
 2. Historical stock data, including key features like price and volume, can be used in a binary classification model to predict whether tomorrow's average price will be higher or lower than today’s, achieving an accuracy of at least 70%
 
@@ -168,7 +168,97 @@ BR3: The client requires a dashboard that allows them to visualize key informati
 
 ## ML Business Case
 
-- In the previous bullet, you potentially visualized an ML task to answer a business requirement. You should frame the business case using the method we covered in the course
+### Business Requirements:
+
+- The client wants to identify key market indicators that are highly predictive of whether the stock price of Phoenix Group Holdings plc (PHNX) will rise or fall on the next trading day. This includes understanding the influence of technical indicators, historical price movements, and market trends
+
+- The client seeks to have a predictive model developed that can generate daily stock price forecasts for PHNX, support automated trading strategies, and incorporate risk assessment to evaluate potential losses and market volatility. The model should be optimized for accuracy and capable of reflecting real-time market dynamics
+
+- The client requires an interactive dashboard that enables the visualization of key market indicators, daily predictions, and risk assessments. The dashboard should allow the client to monitor stock movements, explore predictions, and interact with data to support day-to-day trading decisions and risk management
+
+### Can Traditional Data Analysis Be Used?
+
+Traditional analysis could be used to observe historical trends and identify basic patterns, but it lacks the capacity for accurate predictions and real-time risk assessment. A machine learning model is necessary to capture complex relationships, seasonality, and market volatility for precise forecasting
+
+### Does the Client Need a Dashboard or API?
+
+The client requires a dashboard to visualize market movements, monitor predictions, and assess risk dynamically
+
+### A Successful Project Outcome for the Client Is Defined As:
+
+- An analysis that identifies the key indicators most correlated with stock price changes to support informed trading decisions
+
+- Accurate daily predictions with a well-defined risk assessment to optimize buy/sell strategies
+
+- A dashboard that allows for real-time monitoring of stock movements and model predictions
+
+### Are There Any Ethical or Privacy Concerns?
+
+The dataset is sourced from [yfinance](https://ranaroussi.github.io/yfinance/) and is publicly available. Therefore, there are no ethical or privacy concerns
+
+### Are There Clear EPICS and User Stories for Agile Implementation?
+
+Yes, EPICS have been defined and user stories have been created, organized, and tracked for agile implementation
+
+**EPICS Are Broken Down As Follows:**
+
+1. Information Gathering and Data Collection
+
+2. Data Visualization, Cleaning, and Preparation
+
+3. Model Training, Optimization, and Validation
+
+4. Dashboard Planning, Design, and Development
+
+5. Dashboard Deployment and Release
+
+### Does the Data Suggest a Particular Model?
+
+**Given the nature of the predictions, a combination of Linear Regression and Logistic Regression is appropriate:**
+
+- Linear Regression will be used to predict the daily stock price values, capturing the relationships between historical prices and future movements
+
+- Logistic Regression will be applied to predict the directional movement of the stock price (up or down) for the next trading day, based on key market indicators
+
+**This approach leverages the strengths of both models:**
+
+- Linear Regression for continuous value estimation (stock price)
+
+- Logistic Regression for binary classification (price increase or decrease)
+
+## What Are the Project Inputs and Intended Outputs?
+
+**Model Inputs:**
+
+- Historical stock data for Phoenix Group Holdings plc (PHNX), including Date features, Open, High, Low, Close, Volume, and exploratory data
+
+**Outputs:**
+
+- Daily price forecasts for PHNX stocks
+
+- Directional movement predictions (up or down) for decision-making
+
+- Risk assessment metrics for evaluating market probability
+
+- Interactive visualizations on a dashboard for user engagement
+
+The model will predict the next day's stock price based on historical patterns and key indicators. The dashboard will enable the client to explore predictions, assess risk, and simulate trading decisions
+
+### What Does Success Look Like?
+
+It is agreed that a R² score of at least 0.75 for both the training set and the test set defines success. In addition, the model must achieve a precision of at least 70% to ensure reliable performance in its predictions. The dashboard must also display predictions and risk metrics with real-time updates and interactive exploration capabilities, providing users with actionable insights and allowing them to dive deeper into the data
+
+### How Will the Client Benefit?
+
+**The client will benefit from:**
+
+- More informed decision-making based on accurate daily predictions
+
+- Optimized trading strategies with integrated risk assessment
+
+- Clear visualization of key metrics for rapid market assessment
+
+- The ability to interact with predictions through a streamlined dashboard, enhancing trading efficiency
 
 ## CRISP-DM
 
@@ -219,11 +309,6 @@ BR3: The client requires a dashboard that allows them to visualize key informati
 - The text for the Home page was taken from Wikipedia Article A
 - Instructions on how to implement form validation on the Sign-Up page were taken from [Specific YouTube Tutorial](https://www.youtube.com/)
 - The icons in the footer were taken from [Font Awesome](https://fontawesome.com/)
-
-### Media
-
-- The photos used on the home and sign-up page are from This Open-Source site
-- The images used for the gallery page were taken from this other open-source site
 
 ## Acknowledgements (optional)
 

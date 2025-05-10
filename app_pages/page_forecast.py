@@ -29,13 +29,13 @@ def page_forecast_body():
 
     st.write("### Forecast Predictometer Interface")
     st.info(
-        "* The client is interested in determining whether tomorrow's "
+        "* The client is interested in forecasting whether tomorrow's "
         "average price will be higher or lower compared to today's price. "
-        "Additionally, the client wants to understand the expected price "
-        "range for tomorrow to gain insights into potential risk exposure. "
-        "Based on this analysis, key factors that could sustain or enhance "
-        "price stability, as well as signal high-risk volatility, "
-        "should be identified and presented"
+        "Additionally, the client wants to predict the expected price "
+        "for tomorrow to gain insights into potential risk exposure. "
+        "Based on this analysis, the likelihood of tomorrow's average "
+        "price being higher or lower than today's price should be "
+        "presented, along with the expected price estimate"
     )
 
     if st.checkbox("Stock Data"):

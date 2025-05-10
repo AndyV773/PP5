@@ -19,8 +19,8 @@ def page_data_study_body():
     st.write("### Data Study")
     st.info(
         "* The client is interested in identifying patterns in historical "
-        "stock data to uncover the most relevant variables that influence "
-        "whether a stock's value will go up or down the next day."
+        "stock data to uncover the most relevant market indicators that "
+        "are correlated with forecasting the target"
     )
 
     # inspect data
@@ -28,7 +28,7 @@ def page_data_study_body():
                    "plc (PHNX 2010 - 2025) Stock Data"):
         st.write(
             f"* The dataset has {df.shape[0]} rows and {df.shape[1]} columns, "
-            f"find below the first 10 rows.")
+            f"find below the first 10 rows")
 
         st.write(df.head(10))
 
@@ -39,7 +39,7 @@ def page_data_study_body():
         "A target variable was also introduced, indicating "
         "whether the stock's value will be higher (1) or lower (0) the "
         "next day. This enables deeper analysis of historical stock patterns "
-        "and helps identify key variables that influence price movements."
+        "and helps identify key variables that influence price movements"
     )
 
     # inspect data
@@ -47,7 +47,7 @@ def page_data_study_body():
         st.write(
             f"* The dataset has {df_clean.shape[0]} "
             f"rows and {df_clean.shape[1]} columns, "
-            f"find below the first 10 rows.")
+            f"find below the first 10 rows")
 
         st.write(df_clean.head(10))
 
@@ -64,8 +64,8 @@ def page_data_study_body():
     # Text based on "02 - Churned Customer Study"
     # notebook - "Conclusions and Next steps" section
     st.info(
-        "The correlation indications and plots below interpretation converge. "
-        "It is indicated that: \n"
+        "**The correlation indications and plots below interpretation "
+        "converge. It is indicated that:**\n"
         "* Monday shows the strongest correlation towards target 0, followed "
         "by Tuesday and Wednesday for target 1. However, "
         "the target distribution remains very well balanced, suggesting "
@@ -93,10 +93,10 @@ def page_data_study_body():
     st.write("---")
 
     st.info(
-        "The correlation analysis and visualizations below reveal key "
-        "insights: \n * There is no significant correlation with volume "
+        "**The correlation analysis and visualizations below reveal key "
+        "insights:**\n * There is no significant correlation with volume "
         "or date-related features, suggesting that effective price "
-        "predictions require more than just date and volume alone."
+        "predictions require more than just date and volume alone"
     )
 
     if st.checkbox("Spearman and Pearson Correlation"):
