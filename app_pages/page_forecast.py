@@ -9,7 +9,8 @@ from src.machine_learning.predictive_analysis_ui import (
 def page_forecast_body():
 
     df = load_stock_data(0)
-    df = df[['close', 'open', 'pre_close', 'high', 'tomorrows_average']].copy()
+    df = df[['close', 'open', 'pre_close', 'average',
+             'tomorrows_average']].copy()
 
     # load predict target files
     version = 'v1'
@@ -127,7 +128,7 @@ def DrawInputsWidgets():
     X_live[feature] = st_widget
 
     with col4:
-        feature = "high"
+        feature = "average"
         st_widget = st.number_input(
             label=feature,
             min_value=df[feature].min()*percentageMin,
