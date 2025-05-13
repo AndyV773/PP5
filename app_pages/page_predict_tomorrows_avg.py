@@ -7,13 +7,11 @@ from src.machine_learning.evaluate_reg import reg_performance
 
 def page_predict_tomorrows_avg_body():
 
-    # load tenure pipeline files
+    # load tomorrows average pipeline files
     version = 'v1'
     tomorrows_avg_pipe = load_pkl_file(
         f"outputs/ml_pipeline/predict_tomorrows_avg/"
         f"{version}/regressor_pipeline.pkl")
-    # tenure_labels_map = load_pkl_file(
-    #     f"outputs/ml_pipeline/predict_tenure/{version}/label_map.pkl")
     tomorrows_avg_feat_importance = plt.imread(
         f"outputs/ml_pipeline/predict_tomorrows_avg/"
         f"{version}/features_importance.png")
@@ -33,11 +31,6 @@ def page_predict_tomorrows_avg_body():
         "accurately predicting **tomorrow's average stock price** based "
         "on historical features. The model's performance exceeded the "
         "project requirements, achieving high predictive accuracy\n\n"
-        "**The evaluation metrics indicate strong performance on both "
-        "the train and test sets:**\n - **Train Set:** R² Score: **0.992**, "
-        "MAE: **6.16**, MSE: **81.88**, RMSE: **9.05**\n - "
-        "**Test Set:** R² Score: **0.994**, MAE: **5.96**, "
-        "MSE: **71.85**, RMSE: **8.48**\n\n"
         "* These results suggest that the model generalizes well to "
         "unseen data, with minimal error and high correlation between "
         "the predicted and actual average prices. The low **Mean "
