@@ -12,9 +12,9 @@ def page_data_study_body():
     df = load_stock_data(1)
     df_clean = load_stock_data(0)
 
-    vars_to_study = ['weekday',
-                     'close',
-                     'volume']
+    vars_to_study = ['year',
+                     'month',
+                     'weekday']
 
     st.write("### Data Study")
     st.info(
@@ -102,15 +102,15 @@ def page_data_study_body():
     if st.checkbox("Spearman and Pearson Correlation"):
 
         st.markdown("### Spearman Correlation Heatmap")
-        st.image("outputs/heatmaps/spearman_correlation.png")
+        st.image("docs/plots/spearman_correlation.png")
 
         st.markdown("### Pearson Correlation Heatmap")
-        st.image("outputs/heatmaps/pearson_correlation.png")
+        st.image("docs/plots/pearson_correlation.png")
 
     if st.checkbox("PPS Matrix"):
 
         st.markdown("### Pearson Matrix Heatmap")
-        st.image("outputs/heatmaps/pps_matrix.png")
+        st.image("docs/plots/pps_matrix.png")
 
 
 # function created using "02 - Churned Customer Study"

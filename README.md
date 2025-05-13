@@ -4,6 +4,8 @@
 
 This project leverages advanced Machine Learning techniques to analyze and predict stock movements for Phoenix Group Holdings plc. Our goal is to provide accurate, data-driven insights to help investors make informed decisions. By evaluating key market indicators, and historical performance, Predictometer delivers powerful predictions to optimize investment strategies and manage risk effectively
 
+![screenshot of main page at am i responsive](docs/readme/responsive.png)
+
 The project is accessible at:
 
 - **Heroku**: [https://predictometer-af10797d000b.herokuapp.com](https://predictometer-af10797d000b.herokuapp.com)
