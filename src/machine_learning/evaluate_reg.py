@@ -7,7 +7,7 @@ from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 def regression_evaluation(X, y, pipeline):
     """
     Evaluate the performance of a regression model
-    and display metrics in Streamlit
+    and display metrics
 
     Parameters:
     - X: Features of the dataset

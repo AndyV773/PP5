@@ -59,6 +59,13 @@ def page_predict_tomorrows_avg_body():
 
     st.write("---")
 
+    if st.checkbox("Regression Evaluation"):
+
+        st.markdown("### Scatter Plot")
+        st.image("docs/plots/regression_evaluation.png")
+
+    st.write("---")
+
     # evaluate performance on both sets
     st.write("### Pipeline Performance")
     reg_performance(X_train=X_train, y_train=y_train,
