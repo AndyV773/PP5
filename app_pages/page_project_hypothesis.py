@@ -23,7 +23,7 @@ def page_project_hypothesis_body():
                "model to predict whether tomorrow's average price will be "
                "higher or lower than today’s, achieving "
                "an accuracy of at least 70%**")
-    
+
     st.write("* To be complete")
 
     st.success("* **A regression model trained on historical stock data "
