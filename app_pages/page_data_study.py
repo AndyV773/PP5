@@ -12,9 +12,9 @@ def page_data_study_body():
     df = load_stock_data(1)
     df_clean = load_stock_data(0)
 
-    vars_to_study = ['year',
-                     'month',
-                     'weekday']
+    vars_to_study = ['month',
+                     'weekday',
+                     'high']
 
     st.write("### Data Study")
     st.info(
@@ -66,20 +66,23 @@ def page_data_study_body():
     st.info(
         "**The correlation indications and plots below interpretation "
         "converge. It is indicated that:**\n"
+        "* November shows a stronger correlation towards target 1, "
+        "while September leans more towards target 0. Despite these "
+        "monthly tendencies, the overall target distribution remains "
+        "relatively balanced, indicating that while certain months exhibit "
+        "slight biases, the likelihood of the target being 0 or 1 is "
+        "generally stable throughout the year \n\n"
         "* Monday shows the strongest correlation towards target 0, followed "
         "by Tuesday and Wednesday for target 1. However, "
         "the target distribution remains very well balanced, suggesting "
         "low correlation with the target variable. This indicates that the "
         "likelihood of the target being 0 or 1 is relatively stable "
         "and not heavily influenced by the specific day of the week \n\n"
-        "* The target for 'open' is very well balanced, indicating that "
-        "the opening values do not heavily skew towards one target "
-        "class over the other, reflecting market stability or "
-        "uniform activity during open periods \n\n"
-        "* The target for 'volume' is also balanced, suggesting that "
-        "trade or transactional volume does not disproportionately impact "
-        "the occurrence of target 0 or 1, implying consistent activity "
-        "levels across different trading sessions \n\n"
+        "* The target for 'high' is also balanced, indicating that the "
+        "maximum daily prices are not skewed towards target 0 or 1. "
+        "This suggests consistent price peaks across different trading "
+        "sessions, without significant bias towards one class "
+        "over the other \n\n"
     )
 
     # Code copied from "02 - Churned Customer Study"

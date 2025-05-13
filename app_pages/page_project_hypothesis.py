@@ -2,7 +2,9 @@ import streamlit as st
 
 
 def page_project_hypothesis_body():
-
+    """
+    creates the information for the hypothesis page
+    """
     st.write("### Project Hypothesis and Validation")
 
     # conclusions taken from "02 - Churned Customer Study" notebook
@@ -21,15 +23,18 @@ def page_project_hypothesis_body():
                "model to predict whether tomorrow's average price will be "
                "higher or lower than today’s, achieving "
                "an accuracy of at least 70%**")
+    
+    st.write("* To be complete")
 
     st.success("* **A regression model trained on historical stock data "
-               "(open, close, and volume) can accurately forecast "
-               "tomorrow's average price, and this forecast can be used to "
-               "determine the directional change relative "
-               "to today’s price**")
+               "can accurately forecast tomorrow's average price, and "
+               "this forecast can be used to determine the directional "
+               "change relative to today’s price: Correct**")
 
-    st.success("* **Unsupervised learning techniques, such as clustering, "
-               "can identify distinct market regimes or patterns in "
-               "historical price and volume data. These insights can "
-               "enhance the prediction of future price directions and "
-               "help identify significant market structures**")
+    st.write("* The regression model trained on historical stock data "
+             "demonstrates strong predictive performance, achieving "
+             "an R² of 0.997 on the test set. This indicates that "
+             "99.7% of the variance in the average price is accurately "
+             "captured by the model. Additionally, the low MAE (4.203) "
+             "and RMSE (6.115) confirm precise forecasting with minimal "
+             "error.")
