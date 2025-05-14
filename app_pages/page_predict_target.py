@@ -6,14 +6,23 @@ from src.machine_learning.evaluate_clf import clf_performance
 
 
 def page_predict_target_body():
+    """
+    Displays the "Forecast Target" page in a Streamlit app
 
+    Main Steps:
+    - Loads pre-trained ML pipeline, feature importance plot, and datasets
+
+    - Shows model performance metrics, feature importance, "
+    "and pipeline structure
+
+    - Optionally displays the first 10 rows of stock data
+
+    - Evaluates model predictions on train and test sets
+    """
     df_clean = load_stock_data(0)
 
     version = 'v1'
     # load needed files
-    target_pipe_dc_fe = load_pkl_file(
-        f"outputs/ml_pipeline/predict_target/"
-        f"{version}/clf_pipeline_data_cleaning_feat_eng.pkl")
     target_pipe_model = load_pkl_file(
         f"outputs/ml_pipeline/predict_target/{version}/clf_pipeline_model.pkl")
     target_feat_importance = plt.imread(
@@ -28,29 +37,22 @@ def page_predict_target_body():
     y_test = pd.read_csv(
         f"outputs/ml_pipeline/predict_target/{version}/y_test.csv").values
 
-    st.write("### ML Pipeline: Predict Prospect Target")
+    st.write("### ML Pipeline: Forecast Target")
     # display pipeline training summary conclusions
     st.info(
-        "* The pipeline was tuned to achieve **at least 70% accuracy** "
-        "in predicting whether **tomorrow's average stock price** "
-        "will be **higher or lower** than today's average. This threshold "
-        "was set to ensure reliable directional predictions for "
-        "risk assessment and decision-making\n\n"
-        "**The pipeline performance metrics are as follows:**\n"
-        "- **Train Set:** 70% accuracy with balanced precision and recall "
-        "for both 'Higher' and 'Lower' classes\n\n - **Test Set:** "
-        "68% accuracy, with a slight variance in recall for the 'Higher' "
-        "class (66%) vs. the 'Lower' class (71%)\n\n"
+        "The pipeline was tuned to achieve at least 0.70 Recall on "
+        "the Lower AVG class, as the objective is to minimize "
+        "financial risk by accurately identifying downward movements\n\n"
 
-        "* The confusion matrices indicate the model has a relatively even "
-        "detection capability for both classes, though some "
-        "misclassifications are observed. The precision and recall values "
-        "are consistent, demonstrating stable prediction performance "
-        "across both training and testing datasets\n\n"
+        "**The pipeline performance metrics are as follows:**\n\n"
 
-        "* These results suggest that the model is effective in identifying "
-        "directional changes in average price, providing valuable "
-        "insights for strategic financial planning"
+        "* **Train Set:** 0.71 Recall for the 'Lower AVG' class\n\n"
+
+        "* **Test Set:** 0.72 Recall for the 'Lower AVG' class\n\n"
+
+        "While prioritizing recall for risk reduction, the model also "
+        "maintains a balanced precision and F1-score, ensuring reliable "
+        "predictions across both 'Higher AVG' and 'Lower AVG' classes"
     )
 
     # inspect data
@@ -64,27 +66,23 @@ def page_predict_target_body():
 
     # show pipelines
     st.write("---")
-    st.write("#### There are 2 ML Pipelines arranged in series")
 
-    st.write(" * The first is responsible for data "
-             "cleaning and feature engineering")
-    st.write(target_pipe_dc_fe)
+    st.write("#### There is only 1 ML Pipeline; data "
+             "cleaning and feature engineering were not necessary")
 
-    st.write("* The second is for feature scaling and modelling")
+    st.write("* The pipline is responsible for feature scaling and modelling")
     st.write(target_pipe_model)
 
     # show feature importance plot
     st.write("---")
-    st.write("* The features the model was trained and their importance")
+
+    st.write("* The features the model was trained on and their importance")
     st.write(X_train.columns.to_list())
     st.image(target_feat_importance)
 
-    # We don't need to apply dc_fe pipeline, since X_train and X_test
-    # were already transformed in the jupyter
-    # notebook (Predict Customer Churn.ipynb)
-
     # evaluate performance on train and test set
     st.write("---")
+
     st.write("### Pipeline Performance")
     clf_performance(X_train=X_train, y_train=y_train,
                     X_test=X_test, y_test=y_test,
