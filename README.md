@@ -37,30 +37,30 @@ Next, we extracted the day of the week and the year from the Date column, after 
 
 Finally, we decided to drop the Dividends and Stock Splits columns as they held no meaningful value for the analysis. As a result, our stock dataset now consists of 3,785 rows and 22 columns
 
-| Variable          | Values                                               | Information                                                                          |
-| ----------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| year              | 2010 to 2024                                         |                                                                                      |
-| weekday           | monday, tuesday, wednesday, thursday, friday, sunday |                                                                                      |
-| open              | 302.94 - 797.58                                      | open represents the opening price. The first traded price of the day                 |
-| high              | 310.06 - 821.91                                      | high represents the highest price of the day                                         |
-| low               | 300.35 - 791.94                                      | low represents the lowest price of the day                                           |
-| close             | 300.35 - 800.31                                      | close represents the closing price. The last traded price of the day                 |
-| volume            | 34 - 37073433                                        | volume represents the total number of shares traded (bought and sold) during the day |
-| pre_open          | 302.94 - 797.58                                      |                                                                                      |
-| pre_open_2        | 302.94 - 797.58                                      |                                                                                      |
-| pre_high          | 310.06 - 821.91                                      |                                                                                      |
-| pre_high_2        | 310.06 - 821.91                                      |                                                                                      |
-| pre_low           | 300.35 - 791.94                                      |                                                                                      |
-| pre_low_2         | 300.35 - 791.94                                      |                                                                                      |
-| pre_close         | 300.35 - 800.31                                      |                                                                                      |
-| pre_close_2       | 300.35 - 800.31                                      |                                                                                      |
-| pre_vol           | 34 - 37073433                                        |                                                                                      |
-| pre_vol_2         | 34 - 37073433                                        |                                                                                      |
-| pre_average       | 302.94 - 797.87                                      |                                                                                      |
-| pre_average_2     | 302.94 - 797.87                                      |                                                                                      |
-| average           | 302.94 - 797.87                                      |                                                                                      |
-| tomorrows_average | 302.94 - 797.87                                      |                                                                                      |
-| target            | 0 - 1                                                |                                                                                      |
+| Variable          | Values                                               | Information                                                                                                   |
+| ----------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| year              | 2010 to 2024                                         |                                                                                                               |
+| weekday           | monday, tuesday, wednesday, thursday, friday, sunday |                                                                                                               |
+| open              | 302.94 - 797.58                                      | open represents the opening price. The first traded price of the day                                          |
+| high              | 310.06 - 821.91                                      | high represents the highest price of the day                                                                  |
+| low               | 300.35 - 791.94                                      | low represents the lowest price of the day                                                                    |
+| close             | 300.35 - 800.31                                      | close represents the closing price. The last traded price of the day                                          |
+| volume            | 34 - 37073433                                        | volume represents the total number of shares traded (bought and sold) during the day                          |
+| pre_open          | 302.94 - 797.58                                      | pre_open represents the opening price from the previous day                                                   |
+| pre_open_2        | 302.94 - 797.58                                      | pre_open_2 represents the opening price two days prior                                                        |
+| pre_high          | 310.06 - 821.91                                      | pre_high represents the highest price of the previous day                                                     |
+| pre_high_2        | 310.06 - 821.91                                      | pre_high_2 represents the highest price two days prior                                                        |
+| pre_low           | 300.35 - 791.94                                      | pre_low represents the lowest price of the previous day                                                       |
+| pre_low_2         | 300.35 - 791.94                                      | pre_low_2 represents the lowest price two days prior                                                          |
+| pre_close         | 300.35 - 800.31                                      | pre_close represents the closing price of the previous day                                                    |
+| pre_close_2       | 300.35 - 800.31                                      | pre_close_2 represents the closing price two days prior                                                       |
+| pre_vol           | 34 - 37073433                                        | pre_vol represents the total number of shares traded on the previous day                                      |
+| pre_vol_2         | 34 - 37073433                                        | pre_vol_2 represents the total number of shares traded two days prior                                         |
+| pre_average       | 302.94 - 797.87                                      | pre_average represents the average price between open and close on the previous day                           |
+| pre_average_2     | 302.94 - 797.87                                      | pre_average_2 represents the average price between open and close two days prior                              |
+| average           | 302.94 - 797.87                                      | average represents the average price between open and close on the day                                        |
+| tomorrows_average | 302.94 - 797.87                                      | tomorrows_average represents the regression target for the next day's average price between open and close    |
+| target            | 0 - 1                                                | target represents the classification target, indicating whether tomorrow's average is higher (1) or lower (0) |
 
 ## Business Requirements
 
@@ -305,14 +305,15 @@ It is agreed that a R² score of at least 0.75 for both the training set and the
 
 ## Credits
 
-- In this section, you need to reference where you got your content, media and extra help from. It is common practice to use code from other repositories and tutorials, however, it is important to be very specific about these sources to avoid plagiarism.
-- You can break the credits section up into Content and Media, depending on what you have included in your project.
+A significantly large portion of the code used in this project was directly sourced from Code Institute [churnometer](https://github.com/Code-Institute-Solutions/churnometer)
+
+The structure of the README file were initially inspired [https://github.com/linobollansee/property-value-maximizer](https://github.com/linobollansee/property-value-maximizer). However, numerous enhancements and new features have been incorporated to differentiate my work
+
+A guide that I used for stock analysis provided code for shifting the data to create lag features and to generate a target variable: [https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju](https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju)
 
 ### Content
 
-- The text for the Home page was taken from Wikipedia Article A
-- Instructions on how to implement form validation on the Sign-Up page were taken from [Specific YouTube Tutorial](https://www.youtube.com/)
-- The icons in the footer were taken from [Font Awesome](https://fontawesome.com/)
+ChatGPT was frequently used as a personal assistant to enhance and polish text content, minimizing errors in the Jupyter Notebooks, Streamlit Dashboard, and README file. However, it was used responsibly, considering its potential for mistakes due to biases in its training data, misinterpretation of context, and reasoning limitations
 
 ## Acknowledgements (optional)
 

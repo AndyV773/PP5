@@ -42,13 +42,16 @@ def page_predict_target_body():
     st.info(
         "The pipeline was tuned to achieve at least 0.70 Recall on "
         "the Lower AVG class, as the objective is to minimize "
-        "financial risk by accurately identifying downward movements\n\n"
+        "financial risk by accurately identifying downward movements, "
+        "while still maintaining an overall accuracy of 70% or above\n\n"
 
         "**The pipeline performance metrics are as follows:**\n\n"
 
-        "* **Train Set:** 0.71 Recall for the 'Lower AVG' class\n\n"
+        "* **Train Set:** 0.71 Recall for the 'Lower AVG' class, "
+        "with an overall accuracy of 0.71\n\n"
 
-        "* **Test Set:** 0.72 Recall for the 'Lower AVG' class\n\n"
+        "* **Test Set:** 0.72 Recall for the 'Lower AVG' class, "
+        "with an overall accuracy of 0.70\n\n"
 
         "While prioritizing recall for risk reduction, the model also "
         "maintains a balanced precision and F1-score, ensuring reliable "
