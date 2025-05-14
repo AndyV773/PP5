@@ -3,7 +3,7 @@ import streamlit as st
 
 def page_project_hypothesis_body():
     """
-    creates the information for the hypothesis page
+    displays the information for the hypothesis page
     """
     st.write("### Project Hypothesis and Validation")
 

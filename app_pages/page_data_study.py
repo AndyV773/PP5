@@ -7,7 +7,22 @@ sns.set_style("whitegrid")
 
 
 def page_data_study_body():
+    """
+    Displays Streamlit interface for analyzing historical stock data,
+    identifying key features correlated with predicting stock price movements
 
+    Main Features:
+    - Data Inspection: Displays raw data and exploratory data
+    - Correlation Analysis: Identifies relationships between
+    features and the target
+    - Visual Analysis: Renders heatmaps and distribution plots
+    for deeper insights
+
+    Target Variables:
+    - 'month': Correlation with stock price increases in specific months
+    - 'weekday': Trends in stock performance on specific days
+    - 'high': Consistent price peaks without bias
+    """
     # load data
     df = load_stock_data(1)
     df_clean = load_stock_data(0)

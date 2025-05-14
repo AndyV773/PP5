@@ -7,7 +7,28 @@ from src.machine_learning.predictive_analysis_ui import (
 
 
 def page_forecast_body():
+    """
+    Page to display the Forecast Predictometer Interface
 
+    Steps:
+    1. Load the historical stock data and select key features for analysis
+
+    2. Load the pre-trained models for:
+    - Predicting tomorrow's average price (regression model)
+    - Classifying if tomorrow's average price will be higher or
+    lower (classification model)
+
+    3. Display the client requirements for forecasting both the direction
+    and the estimated price
+
+    4. Optionally display the stock data for user inspection
+
+    5. Generate a live data input interface to allow users to make predictions
+
+    6. When "Run Predictive Analysis" is clicked:
+    - Classify tomorrow's average price as higher or lower
+    - Predict the estimated average price for tomorrow
+    """
     df = load_stock_data(0)
     df = df[['close', 'open', 'pre_close', 'high', 'average']].copy()
 
@@ -77,7 +98,25 @@ def check_variables_for_UI(target_features):
 
 
 def DrawInputsWidgets():
+    """
+    Diaplys interactive input widgets for key stock features
+    to generate live data for prediction
 
+    Steps:
+    1. Load historical stock data and define a percentage
+    range for widget values
+
+    2. Create five columns for widget inputs: 'close', 'open',
+    'pre_close', 'high', and 'average'
+
+    3. For each feature, display a number input widget with
+    dynamic min, max, and median values
+
+    4. Calculate the average of 'open' and 'close' and display it as a metric
+
+    5. Return the live DataFrame (`X_live`) with the collected inputs
+    for real-time prediction
+    """
     # load dataset
     df = load_stock_data(0)
     percentageMin, percentageMax = 0.4, 2.0
@@ -87,7 +126,7 @@ def DrawInputsWidgets():
 
     # We are using these features to feed the ML pipeline - values
     # copied from check_variables_for_UI() result
-    # {"close","open","pre_close"} {"high"}
+    # {"close","open","pre_close","high"} {"average"}
 
     # create an empty DataFrame, which will be the live data
     X_live = pd.DataFrame([], index=[0])

@@ -6,7 +6,22 @@ from src.machine_learning.evaluate_reg import reg_performance
 
 
 def page_predict_tomorrows_avg_body():
+    """
+    Page to display the ML pipeline for forecasting
+    tomorrow's average stock price
 
+    Steps:
+    1. Load the regression pipeline and necessary data files
+    (model, features, and datasets)
+
+    2. Display pipeline summary and key performance insights
+
+    3. Visualize the ML pipeline and feature importance
+
+    4. Optionally show a regression evaluation scatter plot
+
+    5. Evaluate and display pipeline performance on training and test datasets
+    """
     # load tomorrows average pipeline files
     version = 'v1'
     tomorrows_avg_pipe = load_pkl_file(
@@ -31,6 +46,7 @@ def page_predict_tomorrows_avg_body():
         "accurately predicting **tomorrow's average stock price** based "
         "on historical features. The model's performance exceeded the "
         "project requirements, achieving high predictive accuracy\n\n"
+
         "* These results suggest that the model generalizes well to "
         "unseen data, with minimal error and high correlation between "
         "the predicted and actual average prices. The low **Mean "
@@ -39,6 +55,7 @@ def page_predict_tomorrows_avg_body():
         "testing datasets. Additionally, the **Root Mean Squared Error "
         "(RMSE)**, which penalizes larger errors more heavily, is "
         "consistently low, highlighting stable performance\n\n"
+
         "* Overall, the model demonstrates robust predictive capabilities "
         "for forecasting tomorrow's average price, making it a reliable "
         "tool for financial decision-making and risk assessment"
