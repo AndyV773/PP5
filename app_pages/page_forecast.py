@@ -9,8 +9,7 @@ from src.machine_learning.predictive_analysis_ui import (
 def page_forecast_body():
 
     df = load_stock_data(0)
-    df = df[['close', 'open', 'pre_close', 'average',
-             'tomorrows_average']].copy()
+    df = df[['close', 'open', 'pre_close', 'high', 'average']].copy()
 
     # load predict target files
     version = 'v1'
@@ -84,7 +83,7 @@ def DrawInputsWidgets():
     percentageMin, percentageMax = 0.4, 2.0
 
     # we create input widgets only for 4 features
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, col5 = st.columns(5)
 
     # We are using these features to feed the ML pipeline - values
     # copied from check_variables_for_UI() result
@@ -128,6 +127,16 @@ def DrawInputsWidgets():
     X_live[feature] = st_widget
 
     with col4:
+        feature = "high"
+        st_widget = st.number_input(
+            label=feature,
+            min_value=df[feature].min()*percentageMin,
+            max_value=df[feature].max()*percentageMax,
+            value=df[feature].median()
+        )
+    X_live[feature] = st_widget
+
+    with col5:
         avg_value = (X_live["open"].item() + X_live["close"].item()) / 2
         st.metric(label="average", value=f"{avg_value:.2f}")
         X_live["average"] = avg_value

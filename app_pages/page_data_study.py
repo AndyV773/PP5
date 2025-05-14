@@ -65,19 +65,22 @@ def page_data_study_body():
     # notebook - "Conclusions and Next steps" section
     st.info(
         "**The correlation indications and plots below interpretation "
-        "converge. It is indicated that:**\n"
+        "converge. It is indicated that:**\n\n"
+
         "* November shows a stronger correlation towards target 1, "
         "while September leans more towards target 0. Despite these "
         "monthly tendencies, the overall target distribution remains "
         "relatively balanced, indicating that while certain months exhibit "
         "slight biases, the likelihood of the target being 0 or 1 is "
         "generally stable throughout the year \n\n"
+
         "* Monday shows the strongest correlation towards target 0, followed "
         "by Tuesday and Wednesday for target 1. However, "
         "the target distribution remains very well balanced, suggesting "
         "low correlation with the target variable. This indicates that the "
         "likelihood of the target being 0 or 1 is relatively stable "
         "and not heavily influenced by the specific day of the week \n\n"
+
         "* The target for 'high' is also balanced, indicating that the "
         "maximum daily prices are not skewed towards target 0 or 1. "
         "This suggests consistent price peaks across different trading "

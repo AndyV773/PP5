@@ -22,9 +22,12 @@ def page_project_hypothesis_body():
                "price and volume, can be used in a binary classification "
                "model to predict whether tomorrow's average price will be "
                "higher or lower than today’s, achieving "
-               "an accuracy of at least 70%**")
+               "an accuracy of at least 70%: Correct**")
 
-    st.write("* To be complete")
+    st.write("* The model achieved 71% accuracy on the training set and "
+             "70% accuracy on the test set, confirming that historical "
+             "stock data can effectively predict whether tomorrow's "
+             "average price will be higher or lower")
 
     st.success("* **A regression model trained on historical stock data "
                "can accurately forecast tomorrow's average price, and "
