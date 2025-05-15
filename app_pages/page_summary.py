@@ -10,10 +10,10 @@ def page_summary_body():
     # General project terminology
     st.info(
         "**Project Terms & Jargon**\n"
-        "* A **stock** refers to the share price of a publicly "
+        "* **stock** refers to the share price of a publicly "
         "traded company\n\n"
 
-        "* A **forecast** represents the potential future price of a stock, "
+        "* **forecast** represents the potential future price of a stock, "
         "estimated based on historical data and market analysis\n\n"
 
         "* **Market indicators** such as volume, moving averages, volatility, "
@@ -23,11 +23,11 @@ def page_summary_body():
         "will be higher or lower the next day\n\n"
 
         "**Project Dataset**\n"
-        "* The dataset contains **historical stock price data**, "
+        "* The dataset contains historical stock price data, "
         "including open, close, high, low prices, trading "
         "volume, and technical indicators\n\n"
 
-        "* Each row represents **one trading day** for a specific stock\n\n"
+        "* Each row represents one trading day for a specific stock\n\n"
 
         "* The goal is to analyze patterns and correlations between various "
         "indicators and the direction of the next day’s stock price"

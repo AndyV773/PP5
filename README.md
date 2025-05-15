@@ -337,22 +337,205 @@ The forward-filled volume data was then used as the basis for creating lag featu
 
 ## Dashboard Design
 
-- List all dashboard pages and their content, either blocks of information or widgets, like buttons, checkboxes, images, or any other item that your dashboard library supports.
-- Later, during the project development, you may revisit your dashboard plan to update a given feature (for example, at the beginning of the project you were confident you would use a given plot to display an insight but subsequently you used another plot type).
+Business requirements covered:
+
+- **Business Requirement 4: Interactive Dashboard for Risk Assessment and Decision Support**
+
+### Streamlit sidebar
+
+- The Streamlit sidebar provides quick navigation and easy access to different sections of the app, enhancing user experience and usability
+  - Quick Project Summary
+  - Data Study
+  - Forecast Predictometer
+  - Project Hypothesis and Validation
+  - ML: Forecast Target
+  - ML: Forecast Tomorrow's Average
 
 <details>
-<summary>Pearson Correlation Heatmap</summary>
-<img src="docs/plots/pearson_corr.png">
+<summary>Sidebar</summary>
+<img src="docs/readme/sidebar.jpg">
+</details>
+
+### Page 1: Quick Project Summary
+
+This page shows a summary of:
+
+<details>
+<summary>Project Terms & Jargon</summary>
+
+- **stock** refers to the share price of a publicly traded company
+
+- **forecast** represents the potential future price of a stock, estimated based on historical data and market analysis
+
+- **Market indicators** such as volume, moving averages, volatility, and momentum are used to understand stock trends
+
+- The term **target** refers to whether the average stock price will be higher or lower the next day
 </details>
 
 <details>
-<summary>Spearman Correlation Heatmap</summary>
+<summary>Project Dataset</summary>
+
+- The dataset contains historical stock price data, including open, close, high, low prices, trading volume, and technical indicators
+
+- Each row represents one trading day for a specific stock
+
+- The goal is to analyze patterns and correlations between various indicators and the direction of the next day’s stock price
+</details>
+
+<details>
+<summary>Business requirements</summary>
+
+- The client wants to uncover key variables or indicators that are most predictive of whether the stock price will go up or down the next trading day
+
+- The client wants to develop a model that can predict whether the market is likely to move up or down on a daily basis. This will aid in making more informed trading decisions and support automated trading strategies
+
+- The client also requires a model to predict the daily average price of the stock, enabling better risk assessment and the evaluation of potential losses and market volatility
+
+- The client requires a dashboard that allows them to visualize key information, monitor daily predictions, and interact with data to support day-to-day decision-making
+</details>
+
+<details>
+<summary>Quick Project Summary (Screenshot)</summary>
+<img src="docs/readme/page1.jpg">
+</details>
+
+### Page 2: Data Study
+
+Business requirements covered:
+
+- **Business Requirement 1: Data Visualization & Correlation Analysis**
+
+This page shows:
+
+#### Data
+
+<details>
+<summary>Raw Data</summary>
+
+10 rows and 8 columns
+
+| date                      | open   | high   | low    | close  | volume | divided | stock split |
+| ------------------------- | ------ | ------ | ------ | ------ | ------ | ------- | ----------- |
+| 2010-01-04 00:00:00+00:00 | 477.74 | 477.74 | 497.72 | 503.86 | 13401  | 0       | 0           |
+| 2010-01-05 00:00:00+00:00 | 506.97 | 506.97 | 497.72 | 510.01 | 10729  | 0       | 0           |
+| 2010-01-06 00:00:00+00:00 | 497.72 | 497.72 | 497.72 | 497.72 | 0      | 0       | 0           |
+| 2010-01-07 00:00:00+00:00 | 507.19 | 503.27 | 503.27 | 507.19 | 6169   | 0       | 0           |
+| 2010-01-08 00:00:00+00:00 | 503.27 | 503.27 | 503.27 | 503.27 | 0      | 0       | 0           |
+| 2010-01-11 00:00:00+00:00 | 503.27 | 503.27 | 503.27 | 503.27 | 0      | 0       | 0           |
+| 2010-01-12 00:00:00+00:00 | 499.57 | 499.57 | 499.57 | 499.57 | 0      | 0       | 0           |
+| 2010-01-13 00:00:00+00:00 | 496.54 | 496.54 | 503.27 | 496.54 | 3017   | 0       | 0           |
+| 2010-01-14 00:00:00+00:00 | 501.42 | 501.42 | 501.42 | 501.42 | 0      | 0       | 0           |
+| 2010-01-15 00:00:00+00:00 | 492.17 | 492.17 | 499.57 | 492.17 | 1862   | 0       | 0           |
+
+</details>
+
+<details>
+<summary>Exploratory Data</summary>
+
+10 rows and 23 columns
+
+| year | month   | weekday   | open            | high            | low             | close           | volume | pre_open        | pre_open_2      | pre_high        | pre_high_2      | pre_low         | pre_low_2       | pre_close       | pre_close_2     | pre_vol | pre_vol_2 | pre_average     | pre_average_2   | average         | tomorrows_average | target |
+| ---- | ------- | --------- | --------------- | --------------- | --------------- | --------------- | ------ | --------------- | --------------- | --------------- | --------------- | --------------- | --------------- | --------------- | --------------- | ------- | --------- | --------------- | --------------- | --------------- | ----------------- | ------ |
+| 2010 | January | Wednesday | 497.69482421875 | 497.69482421875 | 497.69482421875 | 497.69482421875 | 10729  | 506.94560580931 | 477.71297483554 | 509.97990627457 | 503.83736524666 | 506.94560580931 | 477.71297483554 | 497.69482421875 | 497.69482421875 | 10729   | 13401     | 502.32021501403 | 487.70389952714 | 497.69482421875 | 505.20653102339   | 1      |
+| 2010 | January | Thursday  | 507.16770071865 | 507.16770071865 | 503.24536132813 | 503.24536132813 | 6169   | 497.69482421875 | 506.94560580931 | 497.69482421875 | 509.97990627457 | 497.69482421875 | 506.94560580931 | 497.69482421875 | 497.69482421875 | 10729   | 10729     | 497.69482421875 | 502.32021501403 | 505.20653102339 | 503.24536132813   | 0      |
+| 2010 | January | Friday    | 503.24536132813 | 503.24536132813 | 503.24536132813 | 503.24536132813 | 6169   | 507.16770071865 | 497.69482421875 | 507.16770071865 | 497.69482421875 | 503.24536132813 | 497.69482421875 | 503.24536132813 | 497.69482421875 | 6169    | 10729     | 505.20653102339 | 497.69482421875 | 503.24536132813 | 503.24536132813   | 0      |
+| 2010 | January | Monday    | 503.24536132813 | 503.24536132813 | 503.24536132813 | 503.24536132813 | 6169   | 503.24536132813 | 507.16770071865 | 503.24536132813 | 507.16770071865 | 503.24536132813 | 503.24536132813 | 503.24536132813 | 503.24536132813 | 6169    | 6169      | 503.24536132813 | 505.20653102339 | 503.24536132813 | 499.54504394531   | 0      |
+| 2010 | January | Tuesday   | 499.54504394531 | 499.54504394531 | 499.54504394531 | 499.54504394531 | 6169   | 503.24536132813 | 503.24536132813 | 503.24536132813 | 503.24536132813 | 503.24536132813 | 503.24536132813 | 503.24536132813 | 503.24536132813 | 6169    | 6169      | 503.24536132813 | 503.24536132813 | 499.54504394531 | 499.87805739097   | 1      |
+| 2010 | January | Wednesday | 496.51075345382 | 496.51075345382 | 496.51075345382 | 503.24536132813 | 3017   | 499.54504394531 | 503.24536132813 | 499.54504394531 | 503.24536132813 | 499.54504394531 | 503.24536132813 | 499.54504394531 | 503.24536132813 | 6169    | 6169      | 499.54504394531 | 503.24536132813 | 499.87805739097 | 501.39517211914   | 1      |
+| 2010 | January | Thursday  | 501.39517211914 | 501.39517211914 | 501.39517211914 | 501.39517211914 | 3017   | 496.51075345382 | 499.54504394531 | 496.51075345382 | 499.54504394531 | 496.51075345382 | 499.54504394531 | 503.24536132813 | 499.54504394531 | 3017    | 6169      | 499.87805739097 | 499.54504394531 | 501.39517211914 | 495.84467640552   | 0      |
+| 2010 | January | Friday    | 492.14430886572 | 492.14430886572 | 492.14430886572 | 499.54504394531 | 1862   | 501.39517211914 | 496.51075345382 | 501.39517211914 | 496.51075345382 | 501.39517211914 | 496.51075345382 | 501.39517211914 | 503.24536132813 | 3017    | 3017      | 501.39517211914 | 499.87805739097 | 495.84467640552 | 501.39517211914   | 1      |
+| 2010 | January | Monday    | 501.39517211914 | 501.39517211914 | 501.39517211914 | 501.39517211914 | 1862   | 492.14430886572 | 501.39517211914 | 492.14430886572 | 501.39517211914 | 492.14430886572 | 501.39517211914 | 499.54504394531 | 501.39517211914 | 1862    | 3017      | 495.84467640552 | 501.39517211914 | 501.39517211914 | 499.54504394531   | 0      |
+| 2010 | January | Tuesday   | 499.54504394531 | 499.54504394531 | 499.54504394531 | 499.54504394531 | 1862   | 501.39517211914 | 492.14430886572 | 501.39517211914 | 492.14430886572 | 501.39517211914 | 492.14430886572 | 501.39517211914 | 499.54504394531 | 1862    | 1862      | 501.39517211914 | 495.84467640552 | 499.54504394531 | 488.44402047757   | 0      |
+
+</details>
+
+#### Stock Charts
+
+<details>
+<summary>Line Chart</summary>
+<img src="docs/plots/line_plot.png">
+</details>
+
+<details>
+<summary>Bar Graph</summary>
+<img src="docs/plots/volume_plot.png">
+</details>
+
+#### Correlation Study
+
+A correlation study of the Smart Correlated Selection variable was conducted, including plots for `['month', 'weekday', 'high']`, along with Spearman and Pearson correlation heatmaps, as well as a PPS (Predictive Power Score) heatmap
+
+<details>
+<summary>Spearman Correlation</summary>
 <img src="docs/plots/spearman_corr.png">
 </details>
 
 <details>
-<summary> PPS Heatmap</summary>
+<summary>Pearson Correlation</summary>
+<img src="docs/plots/pearson_corr.png">
+</details>
+
+<details>
+<summary>PPS Matrix</summary>
 <img src="docs/plots/pps_matrix.png">
+</details>
+
+<details>
+<summary>Data Study (Screenshot)</summary>
+<img src="docs/readme/page2.jpg">
+</details>
+
+### Page 3: Forecast Predictometer
+
+Business requirements covered:
+
+- **Business Requirement 2: Price Movement Classification Analysis**
+
+- **Business Requirement 3: Price Prediction Regression Analysis**
+
+This page consists of the main machine learning pipelines designed to perform stock forecasts, predicting tomorrow's average price and whether it will be higher or lower, along with a probability percentage. It also includes a brief introduction to the client's needs and a checkbox for testing with sample stock data
+
+<details>
+<summary>Stock Data</summary>
+
+5 rows and 5 columns
+
+| close             | open              | pre_Close        | high              | average           |
+| ----------------- | ----------------- | ---------------- | ----------------- | ----------------- |
+| 497.69482421875   | 497.69482421875   | 497.69482421875  | 497.69482421875   | 497.69482421875   |
+| 503.245361328125  | 507.1677007186535 | 497.69482421875  | 507.1677007186535 | 505.2065310233893 |
+| 503.245361328125  | 503.245361328125  | 503.245361328125 | 503.245361328125  | 503.245361328125  |
+| 503.245361328125  | 503.245361328125  | 503.245361328125 | 503.245361328125  | 503.245361328125  |
+| 499.5450439453125 | 499.5450439453125 | 503.245361328125 | 499.5450439453125 | 499.5450439453125 |
+
+</details>
+
+It contains four main input widgets for float values: 'close,' 'open,' 'pre_close,' and 'high.' The 'open' and 'close' widgets automatically compute the 'average' value, which then can to run the machine learning forecast
+
+<details>
+<summary>Forecast Predictometer (Screenshot)</summary>
+<img src="docs/readme/page3.jpg">
+</details>
+
+### Page 4: Project Hypothesis and Validation
+
+This page contains the hypothesis and its validation, with success widgets for correct hypotheses and error widgets for incorrect ones
+
+- The assumption that correlation patterns between date or volume and key market indicators, are strong enough to identify predictive relationships
+
+  - Correlation analysis revealed that neither date nor volume alone demonstrates significant forecasting power for price movement. These features may require deeper feature engineering or interaction with other variables to enhance predictability
+
+- Historical stock data, including key features like price and volume, can be used in a binary classification model to predict whether tomorrow's average price will be higher or lower than today’s, achieving an accuracy of at least 0.70
+
+  - The model achieved 0.71 accuracy on the training set and 0.70 accuracy on the test set, confirming that historical stock data can effectively predict whether tomorrow's average price will be higher or lower
+
+- A regression model trained on historical stock data can accurately forecast tomorrow's average price, and this forecast can be used to determine the directional change relative to today’s price
+
+  - The regression model trained on historical stock data demonstrates strong predictive performance, achieving an R² of 0.997 on the test set. This indicates that 0.997 of the variance in the average price is accurately captured by the model. Additionally, the low MAE (4.203) and RMSE (6.115) confirm precise forecasting with minimal error
+
+<details>
+<summary>Project Hypothesis and Validation (Screenshot)</summary>
+<img src="docs/readme/page4.jpg">
 </details>
 
 ## Unfixed Bugs
@@ -375,7 +558,7 @@ Notes:
 
 ## Deployment
 
-Fork or clone this: [repository]()
+Fork or clone this: [repository](https://github.com/AndyV773/PP5)
 
 - For Streamlit app, setup a `setup.sh` file with the following content:
 
@@ -429,9 +612,13 @@ Set the `.python_version` file to a Python version supported by [Heroku-24](http
 
 ### Render
 
-The App live link is: [https://predictometer.onrender.com/](https://predictometer.onrender.com/)
+- The App live link is: [https://predictometer.onrender.com/](https://predictometer.onrender.com/)
 
-- The project was deployed to **Render** using the following steps:
+Render requires 1 additional files for deployment
+
+- `requirements.txt`
+
+The project was deployed to **Render** using the following steps:
 
 1. Log in to Render.com using Github
 
@@ -468,6 +655,22 @@ streamlit run app.py
 - Key: `PYTHON_VERSION`, Value: `3.12.8`
 
 12. Click Deploy Web Service
+
+## Technologies
+
+- **Github:** The project's source code is hosted on GitHub at [https://github.com/](https://github.com/)
+
+- **Visual Studio Code:** Code editing and development were performed using Visual Studio Code (Version 1.99.3), running locally on a desktop environment [https://code.visualstudio.com/](https://code.visualstudio.com/)
+
+- **Heroku:** The web application is deployed on Heroku at [https://id.heroku.com/](https://id.heroku.com/)
+
+- **Render:** The web application is deployed on Render at [https://render.com/](https://render.com/)
+
+- **CI Python Linter:** Code formatting and adherence to PEP8 standards were ensured using the CI Python Linter at [https://pep8ci.herokuapp.com/](https://pep8ci.herokuapp.com/)
+
+- **Flake8 Linter in VS Code:** Flake8 linter in VS Code was used to assist with code style and PEP8 compliance [https://flake8.pycqa.org/](https://flake8.pycqa.org/)
+
+- **Prettier Formatter in VS Code:** Prettier was used in VS Code to auto-format Markdown files, ensuring consistent style and readability [https://prettier.io/](https://prettier.io/)
 
 ## Main Data Analysis and Machine Learning Libraries and Frameworks
 
