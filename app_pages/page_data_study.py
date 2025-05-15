@@ -68,6 +68,31 @@ def page_data_study_body():
 
     st.write("---")
 
+    # inspect charts
+    st.info(
+        "* Over the past 15 years, the stock price has remained within "
+        "a relatively narrow range, with a noticeable increase between "
+        "2015 and 2021 before returning to its previous levels. In "
+        "contrast, trading volume has shown a significant "
+        "upward trend over the same period"
+    )
+
+    if st.checkbox("Stock Charts"):
+
+        st.success("* The line chart provides a clear visualization of stock "
+                   "price movements over the years, highlighting key trends, "
+                   "fluctuations, and long-term performance")
+        st.markdown("### Line Chart")
+        st.image("docs/plots/line_plot.png")
+
+        st.success("* The bar graph provides a clear visualization of "
+                   "trading volume over the years, highlighting "
+                   "significant increases, and long-term growth")
+        st.markdown("### Bar Graph")
+        st.image("docs/plots/volume_plot.png")
+
+    st.write("---")
+
     # Correlation Study Summary
     st.write(
         f"* A correlation study was conducted in the notebook "

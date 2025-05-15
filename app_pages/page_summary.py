@@ -41,7 +41,7 @@ def page_summary_body():
 
     # Business objectives
     st.success(
-        "**The project has 3 main business requirements:**\n"
+        "**The project has 4 main business requirements:**\n"
         "* The client wants to uncover key variables or indicators "
         "that are most predictive of whether the stock price will "
         "go up or down the next trading day\n\n"
