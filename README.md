@@ -340,6 +340,21 @@ The forward-filled volume data was then used as the basis for creating lag featu
 - List all dashboard pages and their content, either blocks of information or widgets, like buttons, checkboxes, images, or any other item that your dashboard library supports.
 - Later, during the project development, you may revisit your dashboard plan to update a given feature (for example, at the beginning of the project you were confident you would use a given plot to display an insight but subsequently you used another plot type).
 
+<details>
+<summary>Pearson Correlation Heatmap</summary>
+<img src="docs/plots/pearson_corr.png">
+</details>
+
+<details>
+<summary>Spearman Correlation Heatmap</summary>
+<img src="docs/plots/spearman_corr.png">
+</details>
+
+<details>
+<summary> PPS Heatmap</summary>
+<img src="docs/plots/pps_matrix.png">
+</details>
+
 ## Unfixed Bugs
 
 When running HyperparameterOptimizationSearch() with GridSearchCV for XGBClassifier, a warning appears due to non-finite test scores ([nan])
@@ -360,18 +375,99 @@ Notes:
 
 ## Deployment
 
+Fork or clone this: [repository]()
+
+- For Streamlit app, setup a `setup.sh` file with the following content:
+
+```bash
+mkdir -p ~/.streamlit/
+echo "\
+[server]\n\
+headless = true\n\
+port = $PORT\n\
+enableCORS = false\n\
+\n\
+" > ~/.streamlit/config.toml
+
+```
+
 ### Heroku
 
-- The App live link is: https://YOUR_APP_NAME.herokuapp.com/
-- Set the runtime.txt Python version to a [Heroku-24](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack currently supported version.
-- The project was deployed to Heroku using the following steps.
+- The App live link is: [https://predictometer-af10797d000b.herokuapp.com/](https://predictometer-af10797d000b.herokuapp.com/)
+
+Heroku requires 3 additional files for deployment
+
+- `requirements.txt`
+- `Procfile`
+- `.python_version`
+
+Ensure `Procfile` contains following command:
+
+```bash
+web: sh setup.sh && streamlit run app.py
+```
+
+Set the `.python_version` file to a Python version supported by [Heroku-24](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack. Version used:
+
+```bash
+3.12.8
+```
+
+- The project was deployed to **Heroku** using the following steps:
 
 1. Log in to Heroku and create an App
-2. At the Deploy tab, select GitHub as the deployment method.
-3. Select your repository name and click Search. Once it is found, click Connect.
-4. Select the branch you want to deploy, then click Deploy Branch.
-5. The deployment process should happen smoothly if all deployment files are fully functional. Click now the button Open App on the top of the page to access your App.
-6. If the slug size is too large then add large files not required for the app to the .slugignore file.
+
+2. At the Deploy tab, select GitHub as the deployment method
+
+3. Select your repository name and click Search. Once it is found, click Connect
+
+4. Select the branch you want to deploy, then click Deploy Branch
+
+5. The deployment process should happen smoothly if all deployment files are fully functional. Click now the button Open App on the top of the page to access your App
+
+6. If the slug size is too large then add large files not required for the app to the `.slugignore` file
+
+### Render
+
+The App live link is: [https://predictometer.onrender.com/](https://predictometer.onrender.com/)
+
+- The project was deployed to **Render** using the following steps:
+
+1. Log in to Render.com using Github
+
+2. Click on the New button, select Web Service
+
+3. At Source Code, select Git Providor. Select your repository name. Click Connect
+
+4. Enter a unique name for your web service
+
+5. Select the Python3 language
+
+6. Select the main branch
+
+7. Select the Frankfurt (EU Central) Region
+
+8. Set the Build Command:
+
+```bash
+pip install -r requirements.txt && ./setup.sh
+```
+
+9. Set the Start Command:
+
+```bash
+streamlit run app.py
+```
+
+10. Set Instance Type: Free
+
+11. Set the Environment Variables:
+
+- Key: `PORT`, Value: `8501`
+
+- Key: `PYTHON_VERSION`, Value: `3.12.8`
+
+12. Click Deploy Web Service
 
 ## Main Data Analysis and Machine Learning Libraries and Frameworks
 

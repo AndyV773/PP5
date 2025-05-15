@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from src.data_management import load_stock_data, load_pkl_file
+from src.data_management import load_pkl_file
 from src.machine_learning.evaluate_clf import clf_performance
 
 
@@ -19,8 +19,6 @@ def page_predict_target_body():
 
     - Evaluates model predictions on train and test sets
     """
-    df_clean = load_stock_data(0)
-
     version = 'v1'
     # load needed files
     target_pipe_model = load_pkl_file(
@@ -43,7 +41,7 @@ def page_predict_target_body():
         "The pipeline was tuned to achieve at least 0.70 Recall on "
         "the Lower AVG class, as the objective is to minimize "
         "financial risk by accurately identifying downward movements, "
-        "while still maintaining an overall accuracy of 70% or above\n\n"
+        "while still maintaining an overall accuracy of 0.70 or above\n\n"
 
         "**The pipeline performance metrics are as follows:**\n\n"
 
@@ -57,15 +55,6 @@ def page_predict_target_body():
         "maintains a balanced precision and F1-score, ensuring reliable "
         "predictions across both 'Higher AVG' and 'Lower AVG' classes"
     )
-
-    # inspect data
-    if st.checkbox("Inspect Exploratory Stock Data"):
-        st.write(
-            f"* The dataset has {df_clean.shape[0]} "
-            f"rows and {df_clean.shape[1]} columns, "
-            f"find below the first 10 rows.")
-
-        st.write(df_clean.head(10))
 
     # show pipelines
     st.write("---")

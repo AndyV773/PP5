@@ -148,10 +148,10 @@ def page_data_study_body():
     if st.checkbox("Spearman and Pearson Correlation"):
 
         st.markdown("### Spearman Correlation Heatmap")
-        st.image("docs/plots/spearman_correlation.png")
+        st.image("docs/plots/spearman_corr.png")
 
         st.markdown("### Pearson Correlation Heatmap")
-        st.image("docs/plots/pearson_correlation.png")
+        st.image("docs/plots/pearson_corr.png")
 
     if st.checkbox("PPS Matrix"):
 
