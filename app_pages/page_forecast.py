@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import itertools
 from src.data_management import load_stock_data, load_pkl_file
 from src.machine_learning.predictive_analysis_ui import (
     predict_target,
@@ -82,11 +83,16 @@ def page_forecast_body():
 
 
 def check_variables_for_UI(target_features):
-    import itertools
+    """
+    Displays the unique set of features used as inputs across all pipelines
+    (classification, regression, clustering) for the user interface
 
-    # The widgets inputs are the features used in all
-    # pipelines (classification, regression, cluster)
-    # We combine them only with unique values
+    Args:
+        target_features (iterable): Iterable of feature names used in pipelines
+
+    Side Effects:
+        Writes to the Streamlit UI the count and list of unique features
+    """
     combined_features = set(
         list(
             itertools.chain(target_features)

@@ -3,17 +3,30 @@ import streamlit as st
 
 def predict_target(X_live, target_features,
                    target_pipeline_model):
+    """
+    Predicts a target class and its probability from live
+    data using a classification pipeline, then displays
+    the result in Streamlit
 
+    Args:
+        X_live (pd.DataFrame): Live input data for prediction
+        target_features (list): Features used by the classification pipeline
+        target_pipeline_model (sklearn Pipeline):
+        Trained classification pipeline
+
+    Returns:
+        np.ndarray: Predicted target class.
+
+    Side Effects:
+        Displays prediction probability and result in the Streamlit app
+    """
     # from live data, subset features related to this pipeline
     X_live_target = X_live.filter(target_features)
 
-    # apply data cleaning / feat engine pipeline to live data
-    X_live_target_dc_fe = X_live_target
-
     # predict
-    target_prediction = target_pipeline_model.predict(X_live_target_dc_fe)
+    target_prediction = target_pipeline_model.predict(X_live_target)
     target_prediction_proba = target_pipeline_model.predict_proba(
-        X_live_target_dc_fe)
+        X_live_target)
     # st.write(target_prediction_proba)
 
     # Create a logic to display the results
@@ -34,7 +47,20 @@ def predict_target(X_live, target_features,
 
 def predict_tomorrows_avg(X_live, tomorrows_avg_features,
                           tomorrows_avg_pipeline):
+    """
+    Predicts tomorrow's average price using a trained
+    pipeline and displays the result
 
+    Args:
+        X_live (pd.DataFrame): Input data for prediction
+        tomorrows_avg_features (list): List of feature names
+        used by the pipeline
+        tomorrows_avg_pipeline (sklearn Pipeline):
+        Trained regression pipeline for prediction
+
+    Side Effects:
+        Displays the predicted average price in the Streamlit app
+    """
     # Subset features related to this pipeline
     X_live_tomorrows_avg = X_live.filter(tomorrows_avg_features)
 

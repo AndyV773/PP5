@@ -299,15 +299,51 @@ It is agreed that a R² score of at least 0.75 for both the training set and the
 5. The deployment process should happen smoothly if all deployment files are fully functional. Click now the button Open App on the top of the page to access your App.
 6. If the slug size is too large then add large files not required for the app to the .slugignore file.
 
-## Main Data Analysis and Machine Learning Libraries
+## Main Data Analysis and Machine Learning Libraries and Frameworks
 
-- Here you should list the libraries you used in the project and provide an example(s) of how you used these libraries.
+### Core Data Processing & Numerical Libraries
+
+- `numpy==1.26.1`: Foundational library for numerical operations, supporting arrays and mathematical functions
+
+- `pandas==2.2.3`: Essential library for data manipulation and analysis using DataFrames and Series
+
+### Visualization Libraries
+
+- `matplotlib==3.8.0`: Widely used for creating static, animated, and interactive visualizations
+
+- `seaborn==0.13.2`: Built on top of Matplotlib that simplifies creating attractive and informative graphs
+
+- `plotly==5.17.0`: Enables interactive plots, dashboards, and web-based visualizations
+
+### Exploratory Data Analysis Tools
+
+- `ydata-profiling[notebook]==4.12.0`: Generates detailed EDA reports, summarizing data characteristics, correlations, and missing values
+
+- `ppscore==1.1.0`: Calculates predictive power scores to determine relationships between variables
+
+### Feature Engineering & Machine Learning
+
+- `feature-engine==1.8.3`: Providing transformers to preprocess and create new features for machine learning pipelines
+
+- `scikit-learn==1.6.1`: Comprehensive library offering tools for machine learning modeling, and evaluation
+
+- `joblib==1.4.2`: efficient serialization and caching of Python objects such as machine learning pipelines
+
+### Data Acquisition
+
+- `yfinance==0.2.56`: Retrieves historical market data from Yahoo Finance
+
+### Interactive Application Frameworks
+
+- `streamlit==1.40.2`: Framework for building interactive machine learning and data science web apps with minimal code
+
+- `notebook==7.4.1`: The Jupyter Notebook application for creating and running interactive code notebooks
 
 ## Credits
 
-A significantly large portion of the code used in this project was directly sourced from Code Institute [churnometer](https://github.com/Code-Institute-Solutions/churnometer)
+A significantly large portion of the code used in this project was directly sourced from Code Institute: [churnometer](https://github.com/Code-Institute-Solutions/churnometer)
 
-The structure of the README file were initially inspired [https://github.com/linobollansee/property-value-maximizer](https://github.com/linobollansee/property-value-maximizer). However, numerous enhancements and new features have been incorporated to differentiate my work
+The structure of the README file was inspired by: [https://github.com/linobollansee/property-value-maximizer](https://github.com/linobollansee/property-value-maximizer). However, numerous enhancements and new features have been incorporated to differentiate my work
 
 A guide that I used for stock analysis provided code for shifting the data to create lag features and to generate a target variable: [https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju](https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju)
 
