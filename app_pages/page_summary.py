@@ -46,11 +46,14 @@ def page_summary_body():
         "that are most predictive of whether the stock price will "
         "go up or down the next trading day\n\n"
 
-        "* The client is looking to have a model developed that can "
-        "generate daily predictions, enabling more informed "
-        "decision-making, supporting automated trading strategies, "
-        "and incorporating risk assessment to evaluate potential "
-        "losses and market volatility\n\n"
+        "* The client wants to develop a model that can predict whether "
+        "the market is likely to move up or down on a daily basis. This "
+        "will aid in making more informed trading decisions and support "
+        "automated trading strategies\n\n"
+
+        "* The client also requires a model to predict the daily average "
+        "price of the stock, enabling better risk assessment and the "
+        "evaluation of potential losses and market volatility\n\n"
 
         "* The client requires a dashboard that allows them to "
         "visualize key information, monitor daily predictions, and "

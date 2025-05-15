@@ -40,4 +40,4 @@ def page_project_hypothesis_body():
              "0.997 of the variance in the average price is accurately "
              "captured by the model. Additionally, the low MAE (4.203) "
              "and RMSE (6.115) confirm precise forecasting with minimal "
-             "error.")
+             "error")

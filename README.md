@@ -67,9 +67,11 @@ Finally, we decided to drop the Dividends and Stock Splits columns as they held 
 
 BR1: The client wants to uncover key market indicators that are most predictive of whether the stock price will go up or down the next trading day
 
-BR2: The client is looking to have a model developed that can generate daily predictions, enabling more informed decision-making, supporting automated trading strategies, and incorporating risk assessment to evaluate potential losses and market volatility
+BR2: The client wants to develop a model that can predict whether the market is likely to move up or down on a daily basis. This will aid in making more informed trading decisions and support automated trading strategies
 
-BR3: The client requires a dashboard that allows them to visualize key information, monitor daily predictions, and interact with data to support day-to-day decision-making
+BR3: The client also requires a model to predict the daily average price of the stock, enabling better risk assessment and the evaluation of potential losses and market volatility
+
+BR4: The client requires a dashboard that allows them to visualize key information, monitor daily predictions, and interact with data to support day-to-day decision-making
 
 ## Agile Methodology
 
@@ -84,7 +86,7 @@ BR3: The client requires a dashboard that allows them to visualize key informati
 
 ### User Stories
 
-- Data Collection and Information Gathering - Business Requirements 1, 2
+- Data Collection and Information Gathering - Business Requirements 1, 2, 3
 
   - As a developer, I want to import historical stock data from an external data source into a Jupyter Notebook, so that I can conduct a thorough analysis of the dataset
 
@@ -93,7 +95,7 @@ BR3: The client requires a dashboard that allows them to visualize key informati
       - The stock dataset is successfully downloaded from Yahoo Finance
       - Stock data is successfully save to CSV format
 
-- Data Study and Visualization - Business Requirement 1, 3
+- Data Study and Visualization - Business Requirement 1, 4
 
   - As a developer, I want to visualize the dataset to identify usable information and assess missing values, So that I can better prepare the data for analysis and ensure quality before modeling
 
@@ -116,7 +118,7 @@ BR3: The client requires a dashboard that allows them to visualize key informati
       - Analysis Correlation and PPS with a heat map
       - Visualizations should demonstrate the effect of cleaning
 
-- Data Cleaning, and Preparation - Business Requirements 1, 2
+- Data Cleaning, and Preparation - Business Requirements 1, 2, 3
 
   - As a developer, I want to implement a robust data cleaning process so that I can ensure the dataset is accurate, reliable, and of high quality
 
@@ -127,21 +129,21 @@ BR3: The client requires a dashboard that allows them to visualize key informati
       - Missing values are imputed
       - Visualize the effect of cleaning
 
-- Model Training, Optimization, and Validation - Business Requirements 2
+- Model Training, Optimization, and Validation - Business Requirements 2, 3
 
-  - As a developer, I want to evaluate the performance of the predictive model so that I can ensure the reliability and accuracy of its predictions
-
-    - Acceptance Criteria:
-
-      - The predictive model must be evaluated to ensure reliability and accuracy of its predictions
-
-  - As a developer I want to measure the model performance so that I can have reliable results with high predictive power
+  - As a developer, I want to evaluate the performance of the classification model so that I can ensure its reliability and accuracy in predicting market movements
 
     - Acceptance Criteria:
 
-      - Model evaluation metrics must be calculated (e.g., accuracy, precision, recall, F1-score for classification; RMSE, MAE, R² for regression)
+      - The classification model must be evaluated using appropriate metrics such as accuracy, precision, recall, and F1-score to ensure reliability and accuracy
 
-- Dashboard Planning, Design, and Development - Business Requirements 3
+  - As a developer, I want to evaluate the performance of the regression model so that I can ensure its reliability and accuracy in predicting daily average stock prices
+
+    - Acceptance Criteria:
+
+      - The regression model must be evaluated using appropriate metrics such as RMSE (Root Mean Squared Error), MAE (Mean Absolute Error), and R² (Coefficient of Determination)
+
+- Dashboard Planning, Design, and Development - Business Requirements 4
 
   - As a client, I want to access the Streamlit landing page so that I can quickly gain an overview of the project
 
@@ -149,7 +151,7 @@ BR3: The client requires a dashboard that allows them to visualize key informati
 
       - The client should be able to quickly gain an overview of the project through the Streamlit landing page
 
-- Dashboard Deployment and Release - Business Requirements 3
+- Dashboard Deployment and Release - Business Requirements 4
 
   - As a developer, I want to initiate the deployment process of my application on Render, or Heroku at an early stage so that I can conduct end-to-end manual deployment testing from the outset
 
@@ -159,17 +161,47 @@ BR3: The client requires a dashboard that allows them to visualize key informati
 
 ## Hypothesis and how to validate?
 
-1. The suspect that correlation patterns between date or volume and key market indicators, are strong enough to identify predictive relationships
+1. The assumption that correlation patterns between date or volume and key market indicators, are strong enough to identify predictive relationships
 
-2. Historical stock data, including key features like price and volume, can be used in a binary classification model to predict whether tomorrow's average price will be higher or lower than today’s, achieving an accuracy of at least 70%
+- Correlation analysis revealed that neither date nor volume alone demonstrates significant forecasting power for price movement. These features may require deeper feature engineering or interaction with other variables to enhance predictability
 
-3. A regression model trained on historical stock data (open, close, and volume) can accurately forecast tomorrow's average price, and this forecast can be used to determine the directional change relative to today’s price
+2. Historical stock data, including key features like price and volume, can be used in a binary classification model to predict whether tomorrow's average price will be higher or lower than today’s, achieving an accuracy of at least 0.70
 
-4. Unsupervised learning techniques, such as clustering, can identify distinct market regimes or patterns in historical price and volume data, which can improve the prediction of future price directions and help identify significant market structures
+- The model achieved 0.71 accuracy on the training set and 0.70 accuracy on the test set, confirming that historical stock data can effectively predict whether tomorrow's average price will be higher or lower
 
-## The rationale to map the business requirements to the Data Visualizations and ML tasks
+3. A regression model trained on historical stock data can accurately forecast tomorrow's average price, and this forecast can be used to determine the directional change relative to today’s price
 
-- List your business requirements and a rationale to map them to the Data Visualizations and ML tasks
+- The regression model trained on historical stock data demonstrates strong predictive performance, achieving an R² of 0.997 on the test set. This indicates that 0.997 of the variance in the average price is accurately captured by the model. Additionally, the low MAE (4.203) and RMSE (6.115) confirm precise forecasting with minimal error
+
+## The rationale to map the business requirements to the Data Visualizations, ML tasks, and Interactive Dashboard
+
+- Business Requirement 1: Data Visualization & Correlation Analysis
+
+  - Correlation Study (Pearson, Spearman, and PPS) to assess how stock features relate to the target variables
+  - Evaluate the significance of these correlations
+  - Visualize important features in relation to stock price targets to better understand factors driving price movements and support forecasting models
+  - This analysis is documented in the following notebook: [DataStudyandVisualisation.ipynb](https://github.com/AndyV773/PP5/blob/main/jupyter_notebooks/02%20-%20DataStudyandVisualisation.ipynb)
+
+- Business Requirement 2: Price Movement Classification Analysis
+
+  - Create a classification target indicating the stock price movement (e.g., higher or lower than the previous day's average price)
+  - Perform classification analysis to build a predictive model based on this target
+  - The goal is to predict stock price direction
+  - This analysis is detailed in the following notebook: [Classification.ipynb](https://github.com/AndyV773/PP5/blob/main/jupyter_notebooks/05%20-%20Modeling%20and%20Evaluation%20-%20Classification.ipynb)
+
+- Business Requirement 3: Price Prediction Regression Analysis
+
+  - Create a regression target representing tomorrow’s average stock price
+  - Perform regression analysis to build a predictive model based on this target
+  - The goal is to predict tomorrow’s average stock price
+  - This analysis is detailed in the following notebook: [Regression.ipynb](https://github.com/AndyV773/PP5/blob/main/jupyter_notebooks/06%20-%20Modeling%20and%20Evaluation%20-%20Regression.ipynb)
+
+- Business Requirement 4: Interactive Dashboard for Risk Assessment and Decision Support
+
+  - Develop an interactive dashboard to visualize key stock market metrics and daily prediction results
+  - Provide interactive features allowing users to explore data
+  - Support informed decision-making by integrating risk assessment tools and clear visual summaries
+  - Code to the multipage dashboard can be found here: [app_pages](https://github.com/AndyV773/PP5/tree/main/app_pages)
 
 ## ML Business Case
 
@@ -251,7 +283,7 @@ The model will predict the next day's stock price based on historical patterns a
 
 ### What Does Success Look Like?
 
-It is agreed that a R² score of at least 0.75 for both the training set and the test set defines success. In addition, the model must achieve a precision of at least 0.70 to ensure reliable performance in its predictions. The dashboard must also display predictions and risk metrics with real-time updates and interactive exploration capabilities, providing users with actionable insights and allowing them to dive deeper into the data
+It is agreed that a R² score of at least 0.75 for both the training set and the test set defines success. In addition, the model must achieve a precision of at least 0.70 to ensure reliable performance in its predictions. The dashboard must also display predictions and risk metrics and interactive exploration capabilities, providing users with actionable insights and allowing them to dive deeper into the data
 
 ### How Will the Client Benefit?
 
@@ -276,6 +308,33 @@ It is agreed that a R² score of at least 0.75 for both the training set and the
 | Evaluation             | Evaluate model performance against business requirements, including risk assessment and prediction accuracy. Validate results with cross-validation and error analysis          |
 | Deployment             | Develop and deploy an interactive dashboard that enables the client to visualize predictions, monitor risk, and interact with real-time data for informed decision-making       |
 
+## Data Preprocessing
+
+### Pandas forward fill was used to impute missing volume data after replacing zero values with NaN
+
+From the initial YData profiling, it was observed that the volume column contains multiple rows with a value of 0. While zero volume might be plausible in early trading periods, it is highly unlikely in more recent years given the consistently high trading activity on surrounding dates. These zero values likely represent missing or erroneous data points rather than actual zero trading volume
+
+To address this, all zero values in the volume column were replaced with NaN. These missing values were then imputed using pandas’ forward fill method, which propagates the last valid observation forward to fill gaps. This approach preserves the continuity of volume data and is appropriate given the temporal nature of the data
+
+The forward-filled volume data was then used as the basis for creating lag features, ensuring that these engineered variables reflect more accurate and realistic trading volumes
+
+### Feature Engineering
+
+- Date/time extraction:
+
+  - The original date column was split into separate features: year, month, and weekday. This transformation helps capture temporal patterns and seasonality that may influence the target variable, improving the model’s ability to learn time-based trends
+
+- Creation of Lag Features for Time Series Analysis:
+
+  - Lag features were created for key variables such as open, close, high, low, volume, and average price. These features represent the previous day’s values and help the model capture temporal dependencies and trends in the stock data
+
+- Encoding categorical variables:
+
+  - Ordinal encoding was applied to the categorical date-related variables, 'month' and 'weekday', to convert them into numerical format suitable for model training
+
+- Exploration of Alternative Feature Transformations:
+  - Various transformation methods such as Winsorization for outlier treatment and the Yeo-Johnson power transformation were explored; however, the model performed better without applying these transformations
+
 ## Dashboard Design
 
 - List all dashboard pages and their content, either blocks of information or widgets, like buttons, checkboxes, images, or any other item that your dashboard library supports.
@@ -283,7 +342,21 @@ It is agreed that a R² score of at least 0.75 for both the training set and the
 
 ## Unfixed Bugs
 
-- You will need to mention unfixed bugs and why they were not fixed. This section should include shortcomings of the frameworks or technologies used. Although time can be a significant variable to consider, paucity of time and difficulty understanding implementation is not a valid reason to leave bugs unfixed.
+When running HyperparameterOptimizationSearch() with GridSearchCV for XGBClassifier, a warning appears due to non-finite test scores ([nan])
+
+Notes:
+
+- Dataset has been thoroughly tested for missing and infinite values—none found
+
+- All feature data types are numeric (float and int)
+
+- Target classes are well balanced
+
+- All lagged features (previous open, close, high, low, volume, etc.) have been dropped to reduce redundancy, but the issue persists
+
+- Log transformation was applied to features in an attempt to resolve the issue (to reduce skewness, stabilize variance, and handle extreme values), but no improvement was observed
+
+- The root cause of the warning is currently unknown and requires further investigation
 
 ## Deployment
 
@@ -352,6 +425,6 @@ A guide that I used for stock analysis provided code for shifting the data to cr
 
 ChatGPT was frequently used as a personal assistant to enhance and polish text content, minimizing errors in the Jupyter Notebooks, Streamlit Dashboard, and README file. However, it was used responsibly, considering its potential for mistakes due to biases in its training data, misinterpretation of context, and reasoning limitations
 
-## Acknowledgements (optional)
+## Acknowledgements
 
-- Thank the people who provided support through this project.
+- Thank the people who provided support through this project
