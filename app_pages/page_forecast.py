@@ -125,6 +125,9 @@ def DrawInputsWidgets():
     """
     # load dataset
     df = load_stock_data(0)
+    # Set the range as a percentage of the dataset's min and max values
+    # Minimum is 40% of the lowest value in the dataset
+    # Maximum is 200% (double) of the highest value in the dataset
     percentageMin, percentageMax = 0.4, 2.0
 
     # we create input widgets only for 4 features
@@ -140,7 +143,6 @@ def DrawInputsWidgets():
     # from here on we draw the widget based on
     # the variable type (numerical or categorical)
     # and set initial values
-
     with col1:
         feature = "close"
         st_widget = st.number_input(
@@ -181,6 +183,8 @@ def DrawInputsWidgets():
         )
     X_live[feature] = st_widget
 
+    # Display the average of "open" and "close"
+    # store it in X_live['average']
     with col5:
         avg_value = (X_live["open"].item() + X_live["close"].item()) / 2
         st.metric(label="average", value=f"{avg_value:.2f}")

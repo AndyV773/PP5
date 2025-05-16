@@ -46,9 +46,9 @@ def page_predict_target_body():
         "**The pipeline performance metrics are as follows:**\n\n"
 
         "* **Train Set:** 0.71 Recall for the 'Lower AVG' class, "
-        "with an overall accuracy of 0.71\n\n"
+        "with an overall accuracy of 0.70\n\n"
 
-        "* **Test Set:** 0.72 Recall for the 'Lower AVG' class, "
+        "* **Test Set:** 0.71 Recall for the 'Lower AVG' class, "
         "with an overall accuracy of 0.70\n\n"
 
         "While prioritizing recall for risk reduction, the model also "

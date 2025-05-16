@@ -24,7 +24,7 @@ def page_project_hypothesis_body():
                "higher or lower than today’s, achieving "
                "an accuracy of at least 0.70: Correct**")
 
-    st.write("* The model achieved 0.71 accuracy on the training set and "
+    st.write("* The model achieved 0.70 accuracy on the training set and "
              "0.70 accuracy on the test set, confirming that historical "
              "stock data can effectively predict whether tomorrow's "
              "average price will be higher or lower")
@@ -36,8 +36,8 @@ def page_project_hypothesis_body():
 
     st.write("* The regression model trained on historical stock data "
              "demonstrates strong predictive performance, achieving "
-             "an R² of 0.997 on the test set. This indicates that "
-             "0.997 of the variance in the average price is accurately "
-             "captured by the model. Additionally, the low MAE (4.203) "
-             "and RMSE (6.115) confirm precise forecasting with minimal "
+             "an R² of 0.99 on the test set. This indicates that "
+             "0.99 of the variance in the average price is accurately "
+             "captured by the model. Additionally, the low MAE "
+             "and RMSE confirm precise forecasting with minimal "
              "error")
