@@ -14,9 +14,9 @@ The project is accessible at:
 
 ## ⚠️ Disclaimer
 
-> This application is intended for informational and educational purposes only. Stock markets are inherently volatile, and predictions made by this application are not guaranteed. The user assumes full responsibility for any investment decisions made based on the analysis provided. It is highly recommended to perform your own research and consider consulting with a financial advisor before making trading decisions
+> **This application is intended for informational and educational purposes only. Stock markets are inherently volatile, and predictions made by this application are not guaranteed. The user assumes full responsibility for any investment decisions made based on the analysis provided. It is highly recommended to perform your own research and consider consulting with a financial advisor before making trading decisions**
 >
-> The developers are not liable for any financial losses or damages resulting from the use of this application. Always use stop-loss strategies to minimize risk
+> **The developers are not liable for any financial losses or damages resulting from the use of this application. Always use stop-loss strategies to minimize risk**
 
 ## Table of Contents
 
@@ -840,6 +840,8 @@ This project uses Logistic Regression for classification and Linear Regression f
 - PCA and transformer models were tried but ultimately not used
 
 - Different data shuffling and variable reduction approaches were explored
+
+- Other models were tested such as AdaBoostClassifier with Decision Tree, Gradient Boosting Classifier, Gradient Boosting Regressor, and Extra Trees Regressor, but none performed as well as the chosen algorithms
 
 During hyperparameter optimization, I experimented with many different parameters, realizing that the outcomes could be slightly adjusted for better or worse. The final configuration selected was the most balanced overall, with a slight preference for identifying class 0—a choice made intentionally to prioritize risk assessment. This decision helps in capturing potential downside risks more effectively, aligning with the objective of mitigating financial losses
 
