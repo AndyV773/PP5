@@ -14,9 +14,9 @@ The project is accessible at:
 
 ## ⚠️ Disclaimer
 
-    This application is intended for informational and educational purposes only. Stock markets are inherently volatile, and predictions made by this application are not guaranteed. The user assumes full responsibility for any investment decisions made based on the analysis provided. It is highly recommended to perform your own research and consider consulting with a financial advisor before making trading decisions
-
-    The developers are not liable for any financial losses or damages resulting from the use of this application. Always use stop-loss strategies to minimize risk
+> This application is intended for informational and educational purposes only. Stock markets are inherently volatile, and predictions made by this application are not guaranteed. The user assumes full responsibility for any investment decisions made based on the analysis provided. It is highly recommended to perform your own research and consider consulting with a financial advisor before making trading decisions
+>
+> The developers are not liable for any financial losses or damages resulting from the use of this application. Always use stop-loss strategies to minimize risk
 
 ## Table of Contents
 
