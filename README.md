@@ -4,7 +4,7 @@
 
 This project leverages advanced Machine Learning techniques to analyze and predict stock movements for Phoenix Group Holdings plc. Our goal is to provide accurate, data-driven insights to help investors make informed decisions. By evaluating key market indicators, and historical performance, Predictometer delivers powerful predictions to optimize investment strategies and manage risk effectively
 
-![screenshot of main page at am i responsive](docs/readme/responsive.png)
+![screenshot of main page at am i responsive](docs/readme_images/responsive.png)
 
 The project is accessible at:
 
@@ -22,7 +22,7 @@ The project is accessible at:
 
 - [Hypothesis and how to validate](#hypothesis-and-how-to-validate)
 
-- [Rationale for Mapping Business Requirements to Visualizations, ML Tasks, and Dashboard](#rationale-for-mapping-business-requirements-to-visualizations-ml-tasks-and-dashboard)
+- [Mapping Business Requirements to Visualizations, ML Tasks, and Dashboard](#mapping-business-requirements-to-visualizations-ml-tasks-and-dashboard)
 
 - [ML Business Case](#ml-business-case)
 
@@ -93,7 +93,7 @@ Finally, we decided to drop the Dividends and Stock Splits columns as they held 
 | pre_average_2     | 302.94 to 797.87                                                                                 | pre_average_2 represents the average price between open and close two days prior                              |
 | average           | 302.94 to 797.87                                                                                 | average represents the average price between open and close on the day                                        |
 | tomorrows_average | 302.94 to 797.87                                                                                 | tomorrows_average represents the regression target for the next day's average price between open and close    |
-| target            | 0, 1                                                                                             | target represents the classification target, indicating whether tomorrow's average is higher (1) or lower (0) |
+| target            | 0, 1                                                                                             | target represents the classification target, indicating whether tomorrow's average is 1 (higher) or 0 (lower) |
 
 ## Business Requirements
 
@@ -104,6 +104,8 @@ Finally, we decided to drop the Dividends and Stock Splits columns as they held 
 **BR3:** The client also requires a model to predict the daily average price of the stock, enabling better risk assessment and the evaluation of potential losses and market volatility
 
 **BR4:** The client requires a dashboard that allows them to visualize key information, monitor daily predictions, and interact with data to support day-to-day decision-making
+
+[↑ Back to Top](#the-predictometer)
 
 ## Agile Methodology
 
@@ -120,78 +122,114 @@ All of the following epics represent high-level user stories guiding the project
 
 ### User Stories
 
-- Data Collection and Information Gathering - **Business Requirements 1, 2, 3**
+#### Data Collection and Information Gathering - **Business Requirements 1, 2, 3**
 
-  - As a developer, I want to import historical stock data from an external data source into a Jupyter Notebook, so that I can conduct a thorough analysis of the dataset
+- As a client, I want to be able to view and download the data, so that I can quickly gain access and insight into historical stock data
 
-    - **Acceptance Criteria:**
+  - **Acceptance Criteria:**
 
-      - The stock dataset is successfully downloaded from Yahoo Finance
-      - Stock data is successfully save to CSV format
+    - The client should be able to view the historical stock data in a table format and download it as a CSV file directly from the Streamlit app
 
-- Data Study and Visualization - **Business Requirement 1, 4**
+- As a developer, I want to import historical stock data from an external data source into a Jupyter Notebook, so that I can conduct a thorough analysis of the dataset
 
-  - As a developer, I want to visualize the dataset to identify usable information and assess missing values, So that I can better prepare the data for analysis and ensure quality before modeling
+  - **Acceptance Criteria:**
 
-    - **Acceptance Criteria:**
+    - The stock dataset is successfully downloaded from Yahoo Finance
+    - Stock data is successfully save to CSV format
 
-      - A data profile report must be generated
-      - Visualize missing data
+#### Data Study and Visualization - **Business Requirement 1, 4**
 
-  - As a developer, I want to extract meaningful features and define the target variable, So that the data is ready for supervised learning and exploratory analysis
+- As a client, I want to view visual insights such as correlations and feature relationships, so that I can better understand the factors influencing stock performance and make informed decisions
 
-    - **Acceptance Criteria:**
+  - **Acceptance Criteria:**
 
-      - Extract features for exploratory analysis
-      - Define the target variable for supervised learning
+    - The client should be able to view heatmaps or similar visualizations that clearly show the correlation and predictive relationships between features in the dataset
 
-  - As a developer, I want to visualize the correlation and predictive power of all features using heatmaps, So that I can identify patterns and relationships between variables that may inform model design
+- As a developer, I want to visualize the dataset to identify usable information and assess missing values, So that I can better prepare the data for analysis and ensure quality before modeling
 
-    - **Acceptance Criteria:**
+  - **Acceptance Criteria:**
 
-      - Analysis Correlation and PPS with a heat map
-      - Visualizations should demonstrate the effect of cleaning
+    - A data profile report must be generated
+    - Visualize missing data
 
-- Data Cleaning, and Preparation - **Business Requirements 1, 2, 3**
+- As a developer, I want to extract meaningful features and define the target variable, So that the data is ready for supervised learning and exploratory analysis
 
-  - As a developer, I want to implement a robust data cleaning process so that I can ensure the dataset is accurate, reliable, and of high quality
+  - **Acceptance Criteria:**
 
-    - **Acceptance Criteria:**
+    - Extract features for exploratory analysis
+    - Define the target variable for supervised learning
 
-      - Extract features and target data
-      - All missing or null values in the dataset must be identified
-      - Missing values are imputed
-      - Visualize the effect of cleaning
+- As a developer, I want to visualize the correlation and predictive power of all features using heatmaps, So that I can identify patterns and relationships between variables that may inform model design
 
-- Model Training, Optimization, and Validation - **Business Requirements 2, 3**
+  - **Acceptance Criteria:**
 
-  - As a developer, I want to evaluate the performance of the classification model so that I can ensure its reliability and accuracy in predicting market movements
+    - Analysis Correlation and PPS with a heat map
+    - Visualizations should demonstrate the effect of cleaning
 
-    - **Acceptance Criteria:**
+#### Data Cleaning, and Preparation - **Business Requirements 1, 2, 3**
 
-      - The classification model must be evaluated using appropriate metrics such as accuracy, precision, recall, and F1-score to ensure reliability and accuracy
+- As a client, I want to be confident that the data I see and download has been cleaned and prepared properly, so that I can trust the insights and decisions based on it
 
-  - As a developer, I want to evaluate the performance of the regression model so that I can ensure its reliability and accuracy in predicting daily average stock prices
+  - **Acceptance Criteria:**
 
-    - **Acceptance Criteria:**
+    - The client should only be presented with cleaned and preprocessed data, with no visible missing or inaccurate values
 
-      - The regression model must be evaluated using appropriate metrics such as RMSE (Root Mean Squared Error), MAE (Mean Absolute Error), and R² (Coefficient of Determination)
+- As a developer, I want to implement a robust data cleaning process so that I can ensure the dataset is accurate, reliable, and of high quality
 
-- Dashboard Planning, Design, and Development - **Business Requirements 4**
+  - **Acceptance Criteria:**
 
-  - As a client, I want to access the Streamlit landing page so that I can quickly gain an overview of the project
+    - Extract features and target data
+    - All missing or null values in the dataset must be identified
+    - Missing values are imputed
+    - Visualize the effect of cleaning
 
-    - **Acceptance Criteria:**
+#### Model Training, Optimization, and Validation - **Business Requirements 2, 3**
 
-      - The client should be able to quickly gain an overview of the project through the Streamlit landing page
+- As a client, I want to understand how reliable the model’s predictions are, so that I can confidently use the insights to inform trading or investment decisions
 
-- Dashboard Deployment and Release - **Business Requirements 4**
+  - **Acceptance Criteria:**
 
-  - As a developer, I want to initiate the deployment process of my application on Render, or Heroku at an early stage so that I can conduct end-to-end manual deployment testing from the outset
+    - The client should be able to view a summary of the model’s performance, demonstrating the predictions accuracy
 
-    - **Acceptance Criteria:**
+- As a developer, I want to evaluate the performance of the classification model so that I can ensure its reliability and accuracy in predicting market movements
 
-      - The application must be successfully deployed
+  - **Acceptance Criteria:**
+
+    - The classification model must be evaluated using appropriate metrics such as accuracy, precision, recall, and F1-score to ensure reliability and accuracy
+
+- As a developer, I want to evaluate the performance of the regression model so that I can ensure its reliability and accuracy in predicting daily average stock prices
+
+  - **Acceptance Criteria:**
+
+    - The regression model must be evaluated using appropriate metrics such as RMSE (Root Mean Squared Error), MAE (Mean Absolute Error), and R² (Coefficient of Determination)
+
+#### Dashboard Planning, Design, and Development - **Business Requirements 4**
+
+- As a client, I want to access the Streamlit landing page so that I can quickly gain an overview of the project
+
+  - **Acceptance Criteria:**
+
+    - The client should be able to quickly gain an overview of the project through the Streamlit landing page
+
+- As a developer, I want to design and build a clear and informative landing page in the Streamlit app, so that clients can quickly understand the purpose and key features of the project
+
+  - **Acceptance Criteria:**
+
+    - The landing page must include a concise project summary, navigation to key sections, and a professional, user-friendly layout
+
+#### Dashboard Deployment and Release - **Business Requirements 4**
+
+- As a client, I want to access the deployed dashboard online, so that I can interact with the application and monitor progress or results at any time
+
+  - **Acceptance Criteria:**
+
+    - The client must be able to access the fully functional Streamlit dashboard via a live URL without needing to install or configure anything
+
+- As a developer, I want to initiate the deployment process of my application on Render, or Heroku at an early stage so that I can conduct end-to-end manual deployment testing from the outset
+
+  - **Acceptance Criteria:**
+
+    - The application must be successfully deployed
 
 ## Hypothesis and how to validate
 
@@ -207,7 +245,9 @@ All of the following epics represent high-level user stories guiding the project
 
      - The regression model trained on historical stock data demonstrates strong predictive performance, achieving an R² of 0.99 on the test set. This indicates that 0.99 of the variance in the average price is accurately captured by the model. Additionally, the low MAE and RMSE confirm precise forecasting with minimal error
 
-## Rationale for Mapping Business Requirements to Visualizations, ML Tasks, and Dashboard
+[↑ Back to Top](#the-predictometer)
+
+## Mapping Business Requirements to Visualizations, ML Tasks, and Dashboard
 
 - **Business Requirement 1:** Data Visualization & Correlation Analysis
 
@@ -236,6 +276,8 @@ All of the following epics represent high-level user stories guiding the project
   - Provide interactive features allowing users to explore data
   - Support informed decision-making by integrating risk assessment tools and clear visual summaries
   - Code to the multipage dashboard can be found here: [app_pages](https://github.com/AndyV773/PP5/tree/main/app_pages)
+
+[↑ Back to Top](#the-predictometer)
 
 ## ML Business Case
 
@@ -337,6 +379,8 @@ It is agreed that a R² score of at least 0.75 for both the training set and the
 
 - The ability to interact with predictions through a streamlined dashboard, enhancing trading efficiency
 
+[↑ Back to Top](#the-predictometer)
+
 ## CRISP-DM
 
 | Process                | Description                                                                                                                                                                     |
@@ -347,6 +391,8 @@ It is agreed that a R² score of at least 0.75 for both the training set and the
 | Modeling               | Research and build predictive models to generate daily stock price forecasts, assess risk, and identify key indicators of market movement. Optimize for accuracy and robustness |
 | Evaluation             | Evaluate model performance against business requirements, including risk assessment and prediction accuracy. Validate results with cross-validation and error analysis          |
 | Deployment             | Develop and deploy an interactive dashboard that enables the client to visualize predictions, monitor risk, and interact with real-time data for informed decision-making       |
+
+[↑ Back to Top](#the-predictometer)
 
 ## Data Preprocessing
 
@@ -375,6 +421,8 @@ The forward-filled volume data was then used as the basis for creating lag featu
 - Exploration of Alternative Feature Transformations:
   - Various transformation methods such as Winsorization for outlier treatment and the Yeo-Johnson power transformation were explored; however, the model performed better without applying these transformations
 
+[↑ Back to Top](#the-predictometer)
+
 ## Dashboard Design
 
 Business requirements covered:
@@ -393,7 +441,7 @@ Business requirements covered:
 
 <details>
 <summary>Sidebar</summary>
-<img src="docs/readme/sidebar.jpg">
+<img src="docs/readme_images/sidebar.jpg">
 </details>
 
 ### Page 1: Quick Project Summary
@@ -436,7 +484,7 @@ This page shows a summary of:
 
 <details>
 <summary>Quick Project Summary (Screenshot)</summary>
-<img src="docs/readme/page1.jpg">
+<img src="docs/readme_images/page1.jpg">
 </details>
 
 ### Page 2: Data Study
@@ -522,7 +570,7 @@ A correlation study of the Smart Correlated Selection variable was conducted, in
 
 <details>
 <summary>Data Study (Screenshot)</summary>
-<img src="docs/readme/page2.jpg">
+<img src="docs/readme_images/page2.jpg">
 </details>
 
 ### Page 3: Forecast Predictometer
@@ -554,20 +602,34 @@ It contains four main input widgets for float values: 'close,' 'open,' 'pre_clos
 
 <details>
 <summary>Forecast Predictometer (Screenshot)</summary>
-<img src="docs/readme/page3.jpg">
+<img src="docs/readme_images/page3.jpg">
 </details>
 
 ### Page 4: Project Hypothesis and Validation
 
-This page contains the hypothesis and its validation, with success widgets for correct hypotheses and error widgets for incorrect ones
+Business requirements covered:
+
+- **Business Requirement 1: Data Visualization & Correlation Analysis**
+
+- **Business Requirement 2: Price Movement Classification Analysis**
+
+- **Business Requirement 3: Price Prediction Regression Analysis**
+
+This page contains the hypothesis and its validation, with success widgets for correct hypotheses and error widgets for incorrect ones. Each hypothesis maps to a specific business requirements
+
+**BR1**
 
 - The assumption that correlation patterns between date or volume and key market indicators, are strong enough to identify predictive relationships
 
   - Correlation analysis revealed that neither date nor volume alone demonstrates significant forecasting power for price movement. These features may require deeper feature engineering or interaction with other variables to enhance predictability
 
+**BR2**
+
 - Historical stock data, including key features like price and volume, can be used in a binary classification model to predict whether tomorrow's average price will be higher or lower than today’s, achieving an accuracy of at least 0.70
 
   - The model achieved 0.70 accuracy on the training set and 0.70 accuracy on the test set, confirming that historical stock data can effectively predict whether tomorrow's average price will be higher or lower
+
+**BR3**
 
 - A regression model trained on historical stock data can accurately forecast tomorrow's average price, and this forecast can be used to determine the directional change relative to today’s price
 
@@ -575,8 +637,157 @@ This page contains the hypothesis and its validation, with success widgets for c
 
 <details>
 <summary>Project Hypothesis and Validation (Screenshot)</summary>
-<img src="docs/readme/page4.jpg">
+<img src="docs/readme_images/page4.jpg">
 </details>
+
+### Page 5: ML: Forecast Target
+
+Business requirements covered:
+
+- **Business Requirement 2: Price Movement Classification Analysis**
+
+This page presents the classification model and its pipeline, showcasing feature importance, model outcomes on training and test datasets, and evaluation metrics—including precision, recall, F1-score, and support—through a detailed confusion matrix
+
+- The pipline is responsible for feature scaling and modelling
+
+```bash
+Pipeline(steps=[('scaler', StandardScaler()),
+                ('model',
+                 LogisticRegression(C=1, random_state=0, solver='saga',
+                                    tol=0.001, warm_start=True))])
+```
+
+- The features the model was trained on and their importance ["close", "open", "pre_close", "high"]
+
+<details>
+<summary>Feature Importance Plot</summary>
+<img src="outputs/ml_pipeline/predict_target/v1/features_importance.png">
+</details>
+
+#### Pipeline Performance
+
+**Train Set**
+
+Confusion Matrix
+
+```bash
+Actual Lower AVG Actual Higher AVG
+Prediction Lower AVG              1064               467
+Prediction Higher AVG              433              1064
+```
+
+Classification Report
+
+```bash
+precision    recall  f1-score   support
+
+   Lower AVG       0.69      0.71      0.70      1497
+  Higher AVG       0.71      0.69      0.70      1531
+
+    accuracy                           0.70      3028
+   macro avg       0.70      0.70      0.70      3028
+weighted avg       0.70      0.70      0.70      3028
+```
+
+**Test Set**
+
+Confusion Matrix
+
+```bash
+Actual Lower AVG Actual Higher AVG
+Prediction Lower AVG               267               118
+Prediction Higher AVG              110               262
+```
+
+Classification Report
+
+```bash
+precision    recall  f1-score   support
+
+   Lower AVG       0.69      0.71      0.70       377
+  Higher AVG       0.70      0.69      0.70       380
+
+    accuracy                           0.70       757
+   macro avg       0.70      0.70      0.70       757
+weighted avg       0.70      0.70      0.70       757
+```
+
+<details>
+<summary>Page 5: ML: Forecast Target (Screenshot)</summary>
+<img src="docs/readme_images/page5.jpg">
+</details>
+
+### Page 6: ML: Forecast Tomorrow's Average
+
+Business requirements covered:
+
+- **Business Requirement 3: Price Prediction Regression Analysis**
+
+This page showcases the regression model and its pipeline, highlighting feature importance, model outcomes on training and test datasets, and evaluation metrics—including MAE, MSE, RMSE, and R²—through comprehensive visualizations and performance analysis
+
+- ML pipeline to predict tomorrow's average price
+
+```bash
+Pipeline(steps=[('feat_scaling', StandardScaler()),
+                ('model', LinearRegression(n_jobs=-1))])
+```
+
+- The features the model was trained and their importance ["open", "close", "average"]
+
+<details>
+<summary>Feature Importance Plot</summary>
+<img src="outputs/ml_pipeline/predict_tomorrows_avg/v1/features_importance.png">
+</details>
+
+- A scatter plot is used to evaluate the performance of the regression model by comparing the predicted values against the actual values, highlighting accuracy, bias, and outliers
+
+<details>
+<summary>Regression Evaluation Plot</summary>
+<img src="docs/plots/regression_evaluation.png">
+</details>
+
+#### Pipeline Performance
+
+##### Model Evaluation
+
+**Train Set**
+
+```bash
+R2 Score
+0.997
+
+Mean Absolute Error
+4.186
+
+Mean Squared Error
+39.084
+
+Root Mean Squared Error
+6.252
+```
+
+**Test Set**
+
+```bash
+R2 Score
+0.99
+
+Mean Absolute Error
+4.061
+
+Mean Squared Error
+34.267
+
+Root Mean Squared Error
+5.854
+```
+
+<details>
+<summary>Page 6: ML: Forecast Tomorrow's Average (Screenshot)</summary>
+<img src="docs/readme_images/page6.jpg">
+</details>
+
+[↑ Back to Top](#the-predictometer)
 
 ## Unfixed Bugs
 
@@ -596,9 +807,27 @@ When running HyperparameterOptimizationSearch() with GridSearchCV for XGBClassif
 
 - The root cause of the warning is currently unknown and requires further investigation
 
+<details>
+<summary>Warning Message (Screenshot)</summary>
+<img src="docs/readme_images/warning_msg.jpg">
+</details>
+
+[↑ Back to Top](#the-predictometer)
+
 ## Manual Testing
 
-### Widget Testing
+### User Story
+
+| User Story         | Action                                                   | Expected Result                                                                            | Result |
+| ------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------ |
+| Data Collection    | Import stock data from Yahoo Finance and saves it to CSV | Stock data is successfully fetched from Yahoo Finance and saved to CSV with correct format | Pass   |
+| Data Visualization | View stock features and correlation heatmaps             | Stock data, features, plots and correlation heatmap are displayed clearly with no errors   | Pass   |
+| Data Cleaning      | Accesses to cleaned data                                 | No missing or null values in the data, and cleaning steps are applied correctly            | Pass   |
+| Modelling          | View model performance metrics                           | Model evaluation metrics are displayed clearly and match the test results                  | Pass   |
+| Dashboard Design   | View the Streamlit landing page                          | Landing page includes project summary, navigation links, and is well-formatted             | Pass   |
+| Deployment         | Accesses the deployed dashboard via URL                  | Dashboard is accessible, loads correctly, and is fully functional on the deployed platform | Pass   |
+
+### Widgets
 
 **The widgets for close, open, pre_close, and high accept values only within the defined ranges:**
 
@@ -644,7 +873,9 @@ These checks help confirm that both models are making logical, data-driven predi
 
 ### PEP8
 
-All Python project files underwent thorough testing using the CI Python Linter, which is available at [https://pep8ci.herokuapp.com/]https://pep8ci.herokuapp.com/ This tool was utilized to ensure that all code adheres to PEP 8 standards, maintaining consistency, readability, and best practices across the project. The automated linting process helped identify and rectify any formatting issues, ensuring that the codebase meets high-quality standards
+All Python project files underwent thorough testing using the CI Python Linter, which is available at [https://pep8ci.herokuapp.com/](https://pep8ci.herokuapp.com/) This tool was utilized to ensure that all code adheres to PEP 8 standards, maintaining consistency, readability, and best practices across the project. The automated linting process helped identify and rectify any formatting issues, ensuring that the codebase meets high-quality standards
+
+[↑ Back to Top](#the-predictometer)
 
 ## Deployment
 
@@ -746,6 +977,8 @@ streamlit run app.py
 
 12. Click Deploy Web Service
 
+[↑ Back to Top](#the-predictometer)
+
 ## Technologies
 
 - **Github:** The project's source code is hosted on GitHub at [https://github.com/](https://github.com/)
@@ -761,6 +994,8 @@ streamlit run app.py
 - **Flake8 Linter in VS Code:** Flake8 linter in VS Code was used to assist with code style and PEP8 compliance [https://flake8.pycqa.org/](https://flake8.pycqa.org/)
 
 - **Prettier Formatter in VS Code:** Prettier was used in VS Code to auto-format Markdown files, ensuring consistent style and readability [https://prettier.io/](https://prettier.io/)
+
+[↑ Back to Top](#the-predictometer)
 
 ## Main Data Analysis and ML Libraries and Frameworks
 
@@ -804,18 +1039,18 @@ streamlit run app.py
 
 ## Credits
 
-A significantly large portion of the code used in this project was directly sourced from Code Institute: [churnometer](https://github.com/Code-Institute-Solutions/churnometer)
+- A significantly large portion of the code used in this project was directly sourced from Code Institute: [churnometer](https://github.com/Code-Institute-Solutions/churnometer)
 
-The structure of the README file was inspired by: [https://github.com/linobollansee/property-value-maximizer](https://github.com/linobollansee/property-value-maximizer). However, numerous enhancements and new features have been incorporated to differentiate my work
+- The structure of the README file was inspired by: [https://github.com/linobollansee/property-value-maximizer](https://github.com/linobollansee/property-value-maximizer). However, numerous enhancements and new features have been incorporated to differentiate my work
 
-A guide that I used for stock analysis provided code for shifting the data to create lag features and to generate a target variable: [https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju](https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju)
+- A guide that I used for stock analysis provided code for shifting the data to create lag features and to generate a target variable: [https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju](https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju)
 
 ### Content
 
-ChatGPT was frequently used as a personal assistant to enhance and polish text content, minimizing errors in the Jupyter Notebooks, Streamlit Dashboard, and README file. However, it was used responsibly, considering its potential for mistakes due to biases in its training data, misinterpretation of context, and reasoning limitations
+- [ChatGPT](https://chatgpt.com/) was frequently used as a personal assistant to enhance and polish text content, minimizing errors in the Jupyter Notebooks, Streamlit Dashboard, and README file. However, it was used responsibly, considering its potential for mistakes due to biases in its training data, misinterpretation of context, and reasoning limitations
 
 ## Acknowledgements
 
 - Thank the people who provided support through this project
 
-[↑ Back to the Top](#the-predictometer)
+[↑ Back to Top](#the-predictometer)

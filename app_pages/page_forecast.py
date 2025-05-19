@@ -1,7 +1,13 @@
 import streamlit as st
 import pandas as pd
 import itertools
-from src.data_management import load_stock_data, load_pkl_file
+from datetime import datetime, timedelta
+import time
+from src.data_management import (
+    load_live_stock_data,
+    load_stock_data,
+    set_cache_expiration,
+    load_pkl_file)
 from src.machine_learning.predictive_analysis_ui import (
     predict_target,
     predict_tomorrows_avg)
@@ -30,8 +36,9 @@ def page_forecast_body():
     - Classify tomorrow's average price as higher or lower
     - Predict the estimated average price for tomorrow
     """
+    ticker = "PHNX.L"
     df = load_stock_data(0)
-    df = df[['close', 'open', 'pre_close', 'high', 'average']].copy()
+    df = df[['open', 'high', 'close', 'pre_close', 'average']].copy()
 
     # load predict target files
     version = 'v1'
@@ -50,22 +57,53 @@ def page_forecast_body():
                                f"{version}/X_train.csv").columns.to_list())
 
     st.write("### Forecast Predictometer Interface")
-    st.info(
-        "* The client is interested in forecasting whether tomorrow's "
-        "average price will be higher or lower compared to today's price. "
-        "Additionally, the client wants to predict the expected price "
-        "for tomorrow to gain insights into potential risk exposure. "
-        "Based on this analysis, the likelihood of tomorrow's average "
-        "price being higher or lower than today's price should be "
-        "presented, along with the expected price estimate"
-    )
+    st.info("* The client is interested in forecasting whether tomorrow's "
+            "average price will be higher or lower compared to today's price. "
+            "Additionally, the client wants to predict the expected price "
+            "for tomorrow to gain insights into potential risk exposure. "
+            "Based on this analysis, the likelihood of tomorrow's average "
+            "price being higher or lower than today's price should be "
+            "presented, along with the expected price estimate")
 
-    if st.checkbox("Stock Data"):
-        st.write(
-            f"* The dataset has {df.shape[0]} "
-            f"rows and {df.shape[1]} columns")
+    if st.checkbox("Historical Test Data"):
+        st.write(f"* The dataset has {df.shape[0]} "
+                 f"rows and {df.shape[1]} columns")
 
         st.write(df)
+
+    st.write(f"* Fetch the latest 10 days data for Phenix Holdings Limited "
+             f"{ticker} from Yahoo Finance")
+
+    if st.checkbox(f"{ticker} Live Data"):
+
+        with st.spinner('Loading Data...'):
+            time.sleep(4)
+
+            df_live, fetch_error = load_live_stock_data(ticker)
+
+            expiration_time = set_cache_expiration()
+            time_left = expiration_time - datetime.now()
+
+            if time_left > timedelta(0):
+                minutes_left = (time_left.seconds // 60) % 60
+                seconds_left = time_left.seconds % 60
+                st.info(f"Data will refresh every hour. "
+                        f"Time To Live remaining: "
+                        f"{minutes_left}m {seconds_left}s")
+            else:
+                st.warning("Data is scheduled to refresh soon")
+
+            if fetch_error:
+                st.error(f"❌ Could not fetch data: {str(fetch_error)}")
+
+            elif not df_live.empty:
+                st.success("Data fetched successfully!")
+                latest_date = df_live.index.max()
+                st.write(f"* Latest available data: "
+                         f"{latest_date.strftime('%d/%m/%Y')}")
+                st.write(df_live)
+            else:
+                st.warning("No data available at the moment")
 
     st.write("---")
 
@@ -135,7 +173,7 @@ def DrawInputsWidgets():
 
     # We are using these features to feed the ML pipeline - values
     # copied from check_variables_for_UI() result
-    # {"close","open","pre_close","high"} {"average"}
+    # {"open", "high", "close", "pre_close", "average"}
 
     # create an empty DataFrame, which will be the live data
     X_live = pd.DataFrame([], index=[0])
@@ -144,16 +182,6 @@ def DrawInputsWidgets():
     # the variable type (numerical or categorical)
     # and set initial values
     with col1:
-        feature = "close"
-        st_widget = st.number_input(
-            label=feature,
-            min_value=df[feature].min()*percentageMin,
-            max_value=df[feature].max()*percentageMax,
-            value=df[feature].median()
-        )
-    X_live[feature] = st_widget
-
-    with col2:
         feature = "open"
         st_widget = st.number_input(
             label=feature,
@@ -163,8 +191,18 @@ def DrawInputsWidgets():
         )
     X_live[feature] = st_widget
 
+    with col2:
+        feature = "high"
+        st_widget = st.number_input(
+            label=feature,
+            min_value=df[feature].min()*percentageMin,
+            max_value=df[feature].max()*percentageMax,
+            value=df[feature].median()
+        )
+    X_live[feature] = st_widget
+
     with col3:
-        feature = "pre_close"
+        feature = "close"
         st_widget = st.number_input(
             label=feature,
             min_value=df[feature].min()*percentageMin,
@@ -174,7 +212,7 @@ def DrawInputsWidgets():
     X_live[feature] = st_widget
 
     with col4:
-        feature = "high"
+        feature = "pre_close"
         st_widget = st.number_input(
             label=feature,
             min_value=df[feature].min()*percentageMin,

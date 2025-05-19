@@ -41,25 +41,23 @@ def page_predict_tomorrows_avg_body():
 
     st.write("### ML Pipeline: Forecast Tomorrow's Average Price")
     # display pipeline training summary conclusions
-    st.info(
-        "* The objective was to develop a **regression model** capable of "
-        "accurately predicting **tomorrow's average stock price** based "
-        "on historical features. The model's performance exceeded the "
-        "project requirements, achieving high predictive accuracy\n\n"
+    st.info("* The objective was to develop a **regression model** capable of "
+            "accurately predicting **tomorrow's average stock price** based "
+            "on historical features. The model's performance exceeded the "
+            "project requirements, achieving high predictive accuracy\n\n"
 
-        "* These results suggest that the model generalizes well to "
-        "unseen data, with minimal error and high correlation between "
-        "the predicted and actual average prices. The low **Mean "
-        "Absolute Error (MAE)** indicates that the average prediction "
-        "error is only around **6 units** for both the training and "
-        "testing datasets. Additionally, the **Root Mean Squared Error "
-        "(RMSE)**, which penalizes larger errors more heavily, is "
-        "consistently low, highlighting stable performance\n\n"
+            "* These results suggest that the model generalizes well to "
+            "unseen data, with minimal error and high correlation between "
+            "the predicted and actual average prices. The low **Mean "
+            "Absolute Error (MAE)** indicates that the average prediction "
+            "error is only around **6 units** for both the training and "
+            "testing datasets. Additionally, the **Root Mean Squared Error "
+            "(RMSE)**, which penalizes larger errors more heavily, is "
+            "consistently low, highlighting stable performance\n\n"
 
-        "* Overall, the model demonstrates robust predictive capabilities "
-        "for forecasting tomorrow's average price, making it a reliable "
-        "tool for financial decision-making and risk assessment"
-    )
+            "* Overall, the model demonstrates robust predictive capabilities "
+            "for forecasting tomorrow's average price, making it a reliable "
+            "tool for financial decision-making and risk assessment")
 
     st.write("---")
 
@@ -76,8 +74,16 @@ def page_predict_tomorrows_avg_body():
 
     st.write("---")
 
-    if st.checkbox("Regression Evaluation"):
+    st.write("* A scatter plot is used to evaluate the performance "
+             "of the regression model by comparing the predicted "
+             "values against the actual values, highlighting "
+             "accuracy, bias, and outliers")
 
+    if st.checkbox("Regression Evaluation"):
+        st.success("The scatter plot shows a strong agreement "
+                   "between predicted and actual values, with a "
+                   "uniform spread and minimal outliers, indicating "
+                   "good model performance")
         st.markdown("### Scatter Plot")
         st.image("docs/plots/regression_evaluation.png")
 

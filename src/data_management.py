@@ -1,6 +1,41 @@
 import streamlit as st
+import yfinance as yf
 import pandas as pd
 import joblib
+from datetime import datetime, timedelta
+
+
+def set_cache_expiration():
+    """
+    Sets the cache expiration time if it's not already in session state
+    """
+    if 'cache_expiration_time' not in st.session_state:
+        st.session_state.cache_expiration_time = (
+            datetime.now() + timedelta(seconds=1000))
+
+    return st.session_state.cache_expiration_time
+
+
+@st.cache_data(ttl=1000)
+def load_live_stock_data(ticker_symbol):
+    """
+    - Cache for one day (86400 seconds) so data auto refreshes daily
+    - Fetches the most recent 10 trading days for the given ticker
+    - If it fails, return None and the error message as a string
+    """
+    try:
+        ticker = yf.Ticker(ticker_symbol)
+        df = ticker.history(period="10d", actions=False)
+        df.index = df.index.tz_localize(None)
+        df.columns = df.columns.str.lower()
+        df['average'] = df[['open', 'close']].mean(axis=1)
+        set_cache_expiration()
+
+        return df, None
+
+    except Exception as e:
+
+        return None, str(e)
 
 
 @st.cache_data

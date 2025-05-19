@@ -32,101 +32,90 @@ def page_data_study_body():
                      'high']
 
     st.write("### Data Study")
-    st.info(
-        "* The client is interested in identifying patterns in historical "
-        "stock data to uncover the most relevant market indicators that "
-        "are correlated with forecasting the target"
-    )
+    st.info("* The client is interested in identifying patterns in historical "
+            "stock data to uncover the most relevant market indicators that "
+            "are correlated with forecasting the target")
 
     # inspect data
     if st.checkbox("Inspect Phoenix Group Holdings "
                    "plc (PHNX 2010 - 2025) Stock Data"):
         st.write(
-            f"* The dataset has {df.shape[0]} rows and {df.shape[1]} columns, "
-            f"find below the first 10 rows")
+            f"* The dataset has {df.shape[0]} rows and {df.shape[1]} columns")
 
-        st.write(df.head(10))
+        st.write(df)
 
-    st.success(
-        "* To inspect feature correlations, we extracted "
-        "the date into day and year columns, "
-        "and added lag features to capture data from up to 2 days prior. "
-        "A target variable was also introduced, indicating "
-        "whether the stock's value will be higher (1) or lower (0) the "
-        "next day. This enables deeper analysis of historical stock patterns "
-        "and helps identify key variables that influence price movements"
-    )
+    st.success("* To analyze feature correlations, we extracted "
+               "the date into day, month, and year columns, "
+               "and added lag features to capture data from up to 2 days "
+               "prior. A target variable was also introduced, indicating "
+               "whether the stock's value will be 1 (higher) or 0 (lower) "
+               "the next day. This enables deeper exploration of "
+               "historical stock patterns and helps identify "
+               "key variables that influence price movements")
 
     # inspect data
     if st.checkbox("Inspect Exploratory Stock Data"):
         st.write(
             f"* The dataset has {df_clean.shape[0]} "
-            f"rows and {df_clean.shape[1]} columns, "
-            f"find below the first 10 rows")
+            f"rows and {df_clean.shape[1]} columns")
 
-        st.write(df_clean.head(10))
+        st.write(df_clean)
 
     st.write("---")
 
     # inspect charts
-    st.info(
-        "* Over the past 15 years, the stock price has remained within "
-        "a relatively narrow range, with a noticeable increase between "
-        "2015 and 2021 before returning to its previous levels. In "
-        "contrast, trading volume has shown a significant "
-        "upward trend over the same period"
-    )
+    st.write("* Over the past 15 years, the stock price has remained within "
+             "a relatively narrow range, with a noticeable increase between "
+             "2015 and 2021 before returning to its previous levels. In "
+             "contrast, trading volume has shown a significant "
+             "upward trend over the same period")
 
     if st.checkbox("Stock Charts"):
 
-        st.success("* The line chart provides a clear visualization of stock "
-                   "price movements over the years, highlighting key trends, "
-                   "fluctuations, and long-term performance")
+        st.info("* The line chart provides a clear visualization of stock "
+                "price movements over the years, highlighting key trends, "
+                "fluctuations, and long-term performance")
         st.markdown("### Line Chart")
         st.image("docs/plots/line_plot.png")
 
-        st.success("* The bar graph provides a clear visualization of "
-                   "trading volume over the years, highlighting "
-                   "significant increases, and long-term growth")
+        st.info("* The bar graph provides a clear visualization of "
+                "trading volume over the years, highlighting "
+                "significant increases, and long-term growth")
         st.markdown("### Bar Graph")
         st.image("docs/plots/volume_plot.png")
 
     st.write("---")
 
     # Correlation Study Summary
-    st.write(
-        f"* A correlation study was conducted in the notebook "
-        f"to better understand how "
-        f"the variables are correlated to the target. \n"
-        f"Listed below variables are: **{vars_to_study}**"
-    )
+    st.write(f"* A smart correlation selection was performed in the "
+             f"notebook to identify variables with the strongest "
+             f"relationships to the target. "
+             f"The selected variables are: {vars_to_study}")
 
     # Text based on "02 - Churned Customer Study"
     # notebook - "Conclusions and Next steps" section
-    st.info(
-        "**The correlation indications and plots below interpretation "
-        "converge. It is indicated that:**\n\n"
+    st.info("**The correlation indications and plots below interpretation "
+            "converge. It is indicated that:**\n\n"
 
-        "* November shows a stronger correlation towards target 1, "
-        "while September leans more towards target 0. Despite these "
-        "monthly tendencies, the overall target distribution remains "
-        "relatively balanced, indicating that while certain months exhibit "
-        "slight biases, the likelihood of the target being 0 or 1 is "
-        "generally stable throughout the year \n\n"
+            "* November shows a stronger correlation towards target 1, "
+            "while September leans more towards target 0. Despite these "
+            "monthly tendencies, the overall target distribution remains "
+            "relatively balanced, indicating that while certain months "
+            "exhibit slight biases, the likelihood of the target being "
+            "0 or 1 is generally stable throughout the year \n\n"
 
-        "* Monday shows the strongest correlation towards target 0, followed "
-        "by Tuesday and Wednesday for target 1. However, "
-        "the target distribution remains very well balanced, suggesting "
-        "low correlation with the target variable. This indicates that the "
-        "likelihood of the target being 0 or 1 is relatively stable "
-        "and not heavily influenced by the specific day of the week \n\n"
+            "* Monday shows the strongest correlation towards target 0, "
+            "followed by Tuesday and Wednesday for target 1. However, "
+            "the target distribution remains very well balanced, suggesting "
+            "low correlation with the target variable. This indicates that "
+            "the likelihood of the target being 0 or 1 is relatively stable "
+            "and not heavily influenced by the specific day of the week \n\n"
 
-        "* The target for 'high' is also balanced, indicating that the "
-        "maximum daily prices are not skewed towards target 0 or 1. "
-        "This suggests consistent price peaks across different trading "
-        "sessions, without significant bias towards one class "
-        "over the other \n\n"
-    )
+            "* The target for 'high' is also balanced, indicating that the "
+            "maximum daily prices are not skewed towards target 0 or 1. "
+            "This suggests consistent price peaks across different trading "
+            "sessions, without significant bias towards one class "
+            "over the other \n\n")
 
     # Code copied from "02 - Churned Customer Study"
     # notebook - "EDA on selected variables" section
@@ -138,12 +127,10 @@ def page_data_study_body():
 
     st.write("---")
 
-    st.info(
-        "**The correlation analysis and visualizations below reveal key "
-        "insights:**\n * There is no significant correlation with volume "
-        "or date-related features, suggesting that effective price "
-        "predictions require more than just date and volume alone"
-    )
+    st.info("**The correlation analysis and visualizations below reveal key "
+            "insights:**\n * There is no significant correlation with volume "
+            "or date-related features, suggesting that effective price "
+            "predictions require more than just date and volume alone")
 
     if st.checkbox("Spearman and Pearson Correlation"):
 
@@ -154,6 +141,13 @@ def page_data_study_body():
         st.image("docs/plots/pearson_corr.png")
 
     if st.checkbox("PPS Matrix"):
+
+        st.write("* While the PPS heatmap highlights strong predictive "
+                 "relationships with the 'year' feature and key market "
+                 "indicators, the latter is too high-level to "
+                 "meaningfully contribute to market trend forecasts. "
+                 "Its lack of granularity prevents it from capturing "
+                 "short-term or structural market dynamics")
 
         st.markdown("### Pearson Matrix Heatmap")
         st.image("docs/plots/pps_matrix.png")
