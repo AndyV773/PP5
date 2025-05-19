@@ -4,12 +4,6 @@
 
 This project leverages advanced Machine Learning techniques to analyze and predict stock movements for Phoenix Group Holdings plc. Our goal is to provide accurate, data-driven insights to help investors make informed decisions. By evaluating key market indicators, and historical performance, Predictometer delivers powerful predictions to optimize investment strategies and manage risk effectively
 
-<h2 style="color:crimson; font-weight: bold;">⚠️ Disclaimer</h2>
-
-> This application is intended for informational and educational purposes only. Stock markets are inherently volatile, and predictions made by this application are not guaranteed. The user assumes full responsibility for any investment decisions made based on the analysis provided. It is highly recommended to perform your own research and consider consulting with a financial advisor before making trading decisions
-
-> The developers are not liable for any financial losses or damages resulting from the use of this application. Always use stop-loss strategies to minimize risk
-
 ![screenshot of main page at am i responsive](docs/readme_images/responsive.png)
 
 The project is accessible at:
@@ -17,6 +11,12 @@ The project is accessible at:
 - **Heroku**: [https://predictometer-af10797d000b.herokuapp.com](https://predictometer-af10797d000b.herokuapp.com)
 
 - **Render**: [https://predictometer.onrender.com](https://predictometer.onrender.com)
+
+## ⚠️ Disclaimer
+
+    This application is intended for informational and educational purposes only. Stock markets are inherently volatile, and predictions made by this application are not guaranteed. The user assumes full responsibility for any investment decisions made based on the analysis provided. It is highly recommended to perform your own research and consider consulting with a financial advisor before making trading decisions
+
+    The developers are not liable for any financial losses or damages resulting from the use of this application. Always use stop-loss strategies to minimize risk
 
 ## Table of Contents
 
@@ -589,6 +589,13 @@ A correlation study of the Smart Correlated Selection variable was conducted, in
 <img src="docs/plots/pps_matrix.png">
 </details>
 
+At the bottom of the page, there is a selection box that allows you to interactively generate correlation charts, plotting each variable against the target classes (0 and 1) for visual analysis. Each plot illustrates that there is very little indication of one target being strongly biased toward a particular variable, which limits its effectiveness for predictive analysis
+
+<details>
+<summary>Interactive Plot Generate (Screenshot)</summary>
+<img src="docs/readme_images/plot_gen.jpg">
+</details>
+
 <details>
 <summary>Data Study (Screenshot)</summary>
 <img src="docs/readme_images/page2.jpg">
@@ -605,17 +612,17 @@ Business requirements covered:
 This page consists of the main machine learning pipelines designed to perform stock forecasts, predicting tomorrow's average price and whether it will be higher or lower, along with a probability percentage. It also includes a brief introduction to the client's needs and a checkbox for testing with sample stock data
 
 <details>
-<summary>Stock Data</summary>
+<summary>Historical Test Data</summary>
 
 5 rows and 5 columns
 
-| close             | open              | pre_Close        | high              | average           |
-| ----------------- | ----------------- | ---------------- | ----------------- | ----------------- |
-| 497.69482421875   | 497.69482421875   | 497.69482421875  | 497.69482421875   | 497.69482421875   |
-| 503.245361328125  | 507.1677007186535 | 497.69482421875  | 507.1677007186535 | 505.2065310233893 |
-| 503.245361328125  | 503.245361328125  | 503.245361328125 | 503.245361328125  | 503.245361328125  |
-| 503.245361328125  | 503.245361328125  | 503.245361328125 | 503.245361328125  | 503.245361328125  |
-| 499.5450439453125 | 499.5450439453125 | 503.245361328125 | 499.5450439453125 | 499.5450439453125 |
+| open              | high              | close             | pre_Close        | average           |
+| ----------------- | ----------------- | ----------------- | ---------------- | ----------------- |
+| 497.69482421875   | 497.69482421875   | 497.69482421875   | 497.69482421875  | 497.69482421875   |
+| 507.1677007186535 | 507.1677007186535 | 503.245361328125  | 497.69482421875  | 505.2065310233893 |
+| 503.245361328125  | 503.245361328125  | 503.245361328125  | 503.245361328125 | 503.245361328125  |
+| 503.245361328125  | 503.245361328125  | 503.245361328125  | 503.245361328125 | 503.245361328125  |
+| 499.5450439453125 | 499.5450439453125 | 499.5450439453125 | 503.245361328125 | 499.5450439453125 |
 
 </details>
 

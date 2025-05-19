@@ -31,6 +31,16 @@ def page_data_study_body():
                      'weekday',
                      'high']
 
+    vars_to_plot = ['year',
+                    'month',
+                    'weekday',
+                    'open',
+                    'high',
+                    'low',
+                    'close',
+                    'volume',
+                    'average']
+
     st.write("### Data Study")
     st.info("* The client is interested in identifying patterns in historical "
             "stock data to uncover the most relevant market indicators that "
@@ -64,7 +74,7 @@ def page_data_study_body():
     st.write("---")
 
     # inspect charts
-    st.write("* The stock price has remained within a relatively "
+    st.write("The stock price has remained within a relatively "
              "narrow range, with a noticeable increase between "
              "2015 and 2021 before returning to its previous levels. In "
              "contrast, trading volume has shown a significant "
@@ -88,10 +98,10 @@ def page_data_study_body():
     st.write("---")
 
     # Correlation Study Summary
-    st.write(f"* A smart correlation selection was performed in the "
+    st.write(f"Smart correlation selection was performed in the "
              f"notebook to identify variables with the strongest "
-             f"relationships to the target. "
-             f"The selected variables are: {vars_to_study}")
+             f"relationships to the target\n\n "
+             f"The selected variables are: **{vars_to_study}**")
 
     # Text based on "02 - Churned Customer Study"
     # notebook - "Conclusions and Next steps" section
@@ -153,10 +163,44 @@ def page_data_study_body():
         st.markdown("### Pearson Matrix Heatmap")
         st.image("docs/plots/pps_matrix.png")
 
+    st.write("---")
+
+    df_plot = df_clean.filter(vars_to_plot + ['target'])
+
+    st.write("The plots below display each variable plotted against "
+             "the target. Classes 0 and 1 are well balanced, which "
+             "does not allow for effective predictive analysis over a "
+             "given variable, as there is no clear dominance that "
+             "could indicate stronger predictive power")
+
+    variable = st.selectbox('Select a feature to visualize correlation:',
+                            df_plot.columns[:-1])
+
+    target_level_per_variable_custom(df_plot, variable)
+
+
+def target_level_per_variable_custom(df_plot, variable):
+    """
+    Plots the distribution of the selected variable from the DataFrame,
+    segmented by the target variable. Categorical features are displayed
+    using count plots, and numerical features are displayed using histograms
+    """
+    target_var = 'target'
+
+    if df_plot[variable].dtype == 'object':
+        plot_categorical(df_plot, variable, target_var)
+    else:
+        plot_numerical(df_plot, variable, target_var)
+
 
 # function created using "02 - Churned Customer Study"
 # notebook code - "Variables Distribution by Churn" section
 def target_level_per_variable(df_eda):
+    """
+    Plots the distribution of each variable in the DataFrame,
+    segmented by the target variable. Categorical features are displayed
+    using count plots, and numerical features are displayed using histograms
+    """
     target_var = 'target'
 
     for col in df_eda.drop([target_var], axis=1).columns.to_list():
@@ -169,6 +213,10 @@ def target_level_per_variable(df_eda):
 # code copied from "02 - Churned Customer Study"
 # notebook - "Variables Distribution by Churn" section
 def plot_categorical(df_clean, col, target_var):
+    """
+    Generates a count plot for a categorical variable,
+    segmented by the target variable
+    """
     fig, axes = plt.subplots(figsize=(12, 5))
     sns.countplot(data=df_clean, x=col, hue=target_var,
                   order=df_clean[col].value_counts().index)
@@ -180,6 +228,10 @@ def plot_categorical(df_clean, col, target_var):
 # code copied from "02 - Churned Customer Study"
 # notebook - "Variables Distribution by Churn" section
 def plot_numerical(df_clean, col, target_var):
+    """
+    Generates a histogram with a KDE overlay for a numerical
+    variable, segmented by the target variable
+    """
     fig, axes = plt.subplots(figsize=(8, 5))
     sns.histplot(data=df_clean, x=col, hue=target_var,
                  kde=True, element="step")

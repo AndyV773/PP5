@@ -3,6 +3,7 @@ import yfinance as yf
 import pandas as pd
 import joblib
 from datetime import datetime, timedelta
+import time
 
 
 def set_cache_expiration():
@@ -11,31 +12,33 @@ def set_cache_expiration():
     """
     if 'cache_expiration_time' not in st.session_state:
         st.session_state.cache_expiration_time = (
-            datetime.now() + timedelta(seconds=1000))
+            datetime.now() + timedelta(seconds=3600))
 
     return st.session_state.cache_expiration_time
 
 
-@st.cache_data(ttl=1000, show_spinner=False)
+@st.cache_data(ttl=3600, show_spinner=False)
 def load_live_stock_data(ticker_symbol):
     """
-    - Cache for one day (86400 seconds) so data auto refreshes daily
+    - Cache for one hour (3600 seconds) so data auto refreshes daily
     - Fetches the most recent 10 trading days for the given ticker
     - If it fails, return None and the error message as a string
     """
-    try:
-        ticker = yf.Ticker(ticker_symbol)
-        df = ticker.history(period="10d", actions=False)
-        df.index = df.index.tz_localize(None)
-        df.columns = df.columns.str.lower()
-        df['average'] = df[['open', 'close']].mean(axis=1)
-        set_cache_expiration()
+    with st.spinner('Loading Data...'):
+        time.sleep(4)
+        try:
+            ticker = yf.Ticker(ticker_symbol)
+            df = ticker.history(period="10d", actions=False)
+            df.index = df.index.tz_localize(None)
+            df.columns = df.columns.str.lower()
+            df['average'] = df[['open', 'close']].mean(axis=1)
+            set_cache_expiration()
 
-        return df, None
+            return df, None
 
-    except Exception as e:
+        except Exception as e:
 
-        return None, str(e)
+            return None, str(e)
 
 
 @st.cache_data

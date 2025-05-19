@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import itertools
 from datetime import datetime, timedelta
-import time
 from src.data_management import (
     load_live_stock_data,
     load_stock_data,
@@ -71,39 +70,36 @@ def page_forecast_body():
 
         st.write(df)
 
-    st.info(f"* Fetch the latest 10 days data for Phenix Holdings Limited "
+    st.info(f"Fetch the latest 10 days data for Phenix Holdings Limited "
             f"{ticker} from Yahoo Finance")
 
     if st.checkbox(f"{ticker} Live Data"):
 
-        with st.spinner('Loading Data...'):
-            time.sleep(4)
+        df_live, fetch_error = load_live_stock_data(ticker)
 
-            df_live, fetch_error = load_live_stock_data(ticker)
+        expiration_time = set_cache_expiration()
+        time_left = expiration_time - datetime.now()
 
-            expiration_time = set_cache_expiration()
-            time_left = expiration_time - datetime.now()
+        if time_left > timedelta(0):
+            minutes_left = (time_left.seconds // 60) % 60
+            seconds_left = time_left.seconds % 60
+            st.info(f"Data cache is set to 1 hour. "
+                    f"Remaining Time To Live: "
+                    f"{minutes_left}m {seconds_left}s")
+        else:
+            st.warning("Data is scheduled to refresh soon")
 
-            if time_left > timedelta(0):
-                minutes_left = (time_left.seconds // 60) % 60
-                seconds_left = time_left.seconds % 60
-                st.info(f"Data cache is set to 1 hour. "
-                        f"Remaining Time To Live: "
-                        f"{minutes_left}m {seconds_left}s")
-            else:
-                st.warning("Data is scheduled to refresh soon")
+        if fetch_error:
+            st.error(f"❌ Could not fetch data: {str(fetch_error)}")
 
-            if fetch_error:
-                st.error(f"❌ Could not fetch data: {str(fetch_error)}")
-
-            elif not df_live.empty:
-                st.success("Data fetched successfully!")
-                latest_date = df_live.index.max()
-                st.write(f"* Latest available data: "
-                         f"{latest_date.strftime('%d/%m/%Y')}")
-                st.write(df_live)
-            else:
-                st.warning("No data available at the moment")
+        elif not df_live.empty:
+            st.success("Data fetched successfully!")
+            latest_date = df_live.index.max()
+            st.write(f"* Latest available data: "
+                     f"{latest_date.strftime('%d/%m/%Y')}")
+            st.write(df_live)
+        else:
+            st.warning("No data available at the moment")
 
     st.write("---")
 
