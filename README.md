@@ -38,6 +38,8 @@ The project is accessible at:
 
 - [Dashboard Design](#dashboard-design)
 
+- [Model Tuning and Selection Summary](#model-tuning-and-selection-summary)
+
 - [Manual Testing](#manual-testing)
 
 - [Deployment](#deployment)
@@ -817,6 +819,49 @@ Root Mean Squared Error
 <summary>Page 6: ML: Forecast Tomorrow's Average (Screenshot)</summary>
 <img src="docs/readme_images/page6.jpg">
 </details>
+
+[↑ Back to Top](#the-predictometer)
+
+## Model Tuning and Selection Summary
+
+This project uses Logistic Regression for classification and Linear Regression for regression tasks. Extensive experimentation was performed to optimize model performance:
+
+- All variables were tested with smart correlation, including engineered features like ‘month’, ‘weekday’, and ‘high’
+
+- Various data transformations (Yeo-Johnson, winsorization, Log) and dataset lengths (2010–2025 vs. 2015–2025) were evaluated
+
+- PCA and transformer models were tried but ultimately not used
+
+- Different data shuffling and variable reduction approaches were explored
+
+During hyperparameter optimization, I experimented with many different parameters, realizing that the outcomes could be slightly adjusted for better or worse. The final configuration selected was the most balanced overall, with a slight preference for identifying class 0—a choice made intentionally to prioritize risk assessment. This decision helps in capturing potential downside risks more effectively, aligning with the objective of mitigating financial losses
+
+The best parameters identified were:
+
+- **Logistic Regression:**
+
+```bash
+{'model__C': 1,
+'model__class_weight': None,
+'model__fit_intercept': True,
+'model__max_iter': 100,
+'model__penalty': 'l2',
+'model__solver': 'saga',
+'model__tol': 0.001,
+'model__warm_start': True}
+```
+
+- **Linear Regression:**
+
+```bash
+{'model__copy_X': True,
+'model__fit_intercept': True,
+'model__n_jobs': -1}
+```
+
+These settings, combined with the chosen preprocessing and feature engineering steps, provided the most reliable and effective models for the forecasting task
+
+For a more in-depth analysis, please refer to the Jupyter Notebooks, which document the parameter tuning strategies, model selection processes, and evaluation steps [https://github.com/AndyV773/PP5/tree/main/jupyter_notebooks](https://github.com/AndyV773/PP5/tree/main/jupyter_notebooks)
 
 [↑ Back to Top](#the-predictometer)
 
