@@ -71,8 +71,8 @@ def page_forecast_body():
 
         st.write(df)
 
-    st.write(f"* Fetch the latest 10 days data for Phenix Holdings Limited "
-             f"{ticker} from Yahoo Finance")
+    st.info(f"* Fetch the latest 10 days data for Phenix Holdings Limited "
+            f"{ticker} from Yahoo Finance")
 
     if st.checkbox(f"{ticker} Live Data"):
 
@@ -87,8 +87,8 @@ def page_forecast_body():
             if time_left > timedelta(0):
                 minutes_left = (time_left.seconds // 60) % 60
                 seconds_left = time_left.seconds % 60
-                st.info(f"Data will refresh every hour. "
-                        f"Time To Live remaining: "
+                st.info(f"Data cache is set to 1 hour. "
+                        f"Remaining Time To Live: "
                         f"{minutes_left}m {seconds_left}s")
             else:
                 st.warning("Data is scheduled to refresh soon")

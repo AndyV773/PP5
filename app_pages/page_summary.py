@@ -56,3 +56,16 @@ def page_summary_body():
                "* The client requires a dashboard that allows them to "
                "visualize key information, monitor daily predictions, and "
                "interact with data to support day-to-day decision-making")
+
+    st.error("### ⚠️ Disclaimer\n\n This application is intended for "
+             "informational and educational purposes only. Stock "
+             "markets are inherently volatile, and predictions made "
+             "by this application are not guaranteed. The user assumes "
+             "full responsibility for any investment decisions made "
+             "based on the analysis provided. It is highly recommended "
+             "to perform your own research and consider consulting "
+             "with a financial advisor before making trading decisions\n\n "
+
+             "The developers are not liable for any financial losses "
+             "or damages resulting from the use of this application. "
+             "Always use stop-loss strategies to minimize risk")

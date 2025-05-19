@@ -4,6 +4,12 @@
 
 This project leverages advanced Machine Learning techniques to analyze and predict stock movements for Phoenix Group Holdings plc. Our goal is to provide accurate, data-driven insights to help investors make informed decisions. By evaluating key market indicators, and historical performance, Predictometer delivers powerful predictions to optimize investment strategies and manage risk effectively
 
+<h2 style="color:crimson; font-weight: bold;">⚠️ Disclaimer</h2>
+
+> This application is intended for informational and educational purposes only. Stock markets are inherently volatile, and predictions made by this application are not guaranteed. The user assumes full responsibility for any investment decisions made based on the analysis provided. It is highly recommended to perform your own research and consider consulting with a financial advisor before making trading decisions
+
+> The developers are not liable for any financial losses or damages resulting from the use of this application. Always use stop-loss strategies to minimize risk
+
 ![screenshot of main page at am i responsive](docs/readme_images/responsive.png)
 
 The project is accessible at:
@@ -483,6 +489,13 @@ This page shows a summary of:
 </details>
 
 <details>
+<summary>⚠️ Disclaimer</summary>
+This application is intended for informational and educational purposes only. Stock markets are inherently volatile, and predictions made by this application are not guaranteed. The user assumes full responsibility for any investment decisions made based on the analysis provided. It is highly recommended to perform your own research and consider consulting with a financial advisor before making trading decisions
+  
+The developers are not liable for any financial losses or damages resulting from the use of this application. Always use stop-loss strategies to minimize risk
+</details>
+
+<details>
 <summary>Quick Project Summary (Screenshot)</summary>
 <img src="docs/readme_images/page1.jpg">
 </details>
@@ -496,6 +509,8 @@ Business requirements covered:
 This page shows:
 
 #### Data
+
+Raw data is the original data downloaded from yfinance
 
 <details>
 <summary>Raw Data</summary>
@@ -516,6 +531,8 @@ This page shows:
 | 2010-01-15 00:00:00+00:00 | 492.17 | 492.17 | 499.57 | 492.17 | 1862   | 0       | 0           |
 
 </details>
+
+Exploratory data is the data that has been engineered by extracting features such as day, month, and week, and by adding lag features from previous days
 
 <details>
 <summary>Exploratory Data</summary>
@@ -538,6 +555,8 @@ This page shows:
 </details>
 
 #### Stock Charts
+
+The stock charts display the open, close, high, low prices, and trading volume data spanning from 2010 to 2025, providing a comprehensive view of market movements over the years
 
 <details>
 <summary>Line Chart</summary>
@@ -598,7 +617,19 @@ This page consists of the main machine learning pipelines designed to perform st
 
 </details>
 
-It contains four main input widgets for float values: 'close,' 'open,' 'pre_close,' and 'high.' The 'open' and 'close' widgets automatically compute the 'average' value, which then can to run the machine learning forecast
+I have created a checkbox that fetches the most recent data for PHNX.L from the Yahoo Finance API. The data is stored in the cache for 1 hour to save computation, with a countdown timer displaying the remaining cache time. This allows the user to test the model with real-time data efficiently. If there are any issues during data fetching, an error message will be displayed to inform the user
+
+<details>
+<summary>Live Data Success (Screenshot)</summary>
+<img src="docs/readme_images/live_data_success.jpg">
+</details>
+
+<details>
+<summary>Live Data Error (Screenshot)</summary>
+<img src="docs/readme_images/live_data_error.jpg">
+</details>
+
+There are four main input widgets for float values: 'open', 'high', 'close', and 'pre_close'. The 'open' and 'close' widgets automatically compute the 'average' value, which then can to run the machine learning forecast
 
 <details>
 <summary>Forecast Predictometer (Screenshot)</summary>
@@ -789,31 +820,6 @@ Root Mean Squared Error
 
 [↑ Back to Top](#the-predictometer)
 
-## Unfixed Bugs
-
-When running HyperparameterOptimizationSearch() with GridSearchCV for XGBClassifier, a warning appears due to non-finite test scores ([nan])
-
-**Notes:**
-
-- Dataset has been thoroughly tested for missing and infinite values—none found
-
-- All feature data types are numeric (float and int)
-
-- Target classes are well balanced
-
-- All lagged features (previous open, close, high, low, volume, etc.) have been dropped to reduce redundancy, but the issue persists
-
-- Log transformation was applied to features in an attempt to resolve the issue (to reduce skewness, stabilize variance, and handle extreme values), but no improvement was observed
-
-- The root cause of the warning is currently unknown and requires further investigation
-
-<details>
-<summary>Warning Message (Screenshot)</summary>
-<img src="docs/readme_images/warning_msg.jpg">
-</details>
-
-[↑ Back to Top](#the-predictometer)
-
 ## Manual Testing
 
 ### User Story
@@ -874,6 +880,33 @@ These checks help confirm that both models are making logical, data-driven predi
 ### PEP8
 
 All Python project files underwent thorough testing using the CI Python Linter, which is available at [https://pep8ci.herokuapp.com/](https://pep8ci.herokuapp.com/) This tool was utilized to ensure that all code adheres to PEP 8 standards, maintaining consistency, readability, and best practices across the project. The automated linting process helped identify and rectify any formatting issues, ensuring that the codebase meets high-quality standards
+
+### Unfixed Bugs
+
+When running HyperparameterOptimizationSearch() with GridSearchCV for XGBClassifier, a warning appears due to non-finite test scores ([nan])
+
+**Notes:**
+
+- Dataset has been thoroughly tested for missing and infinite values—none found
+
+- All feature data types are numeric (float and int)
+
+- Target classes are well balanced
+
+- All lagged features (previous open, close, high, low, volume, etc.) have been dropped to reduce redundancy, but the issue persists
+
+- Log transformation was applied to features in an attempt to resolve the issue (to reduce skewness, stabilize variance, and handle extreme values), but no improvement was observed
+
+- The root cause of the warning is currently unknown and requires further investigation
+
+<details>
+<summary>Warning Message (Screenshot)</summary>
+<img src="docs/readme_images/warning_msg.jpg">
+</details>
+
+### Fixed Bugs
+
+While running the Hyperparameter Optimization Search and selecting the best parameters, I encountered a minor issue where certain hyperparameters caused the model to favor one class over the other, despite balanced datasets. This behavior was most noticeable when `model__class_weight` was set to `None` and `model__C` was set too low. Similar issues appeared with other tree-based classifiers when hyperparameter values were not properly tuned. I spent time adjusting and understanding these parameters to improve model balance and achieve the best possible outcomes
 
 [↑ Back to Top](#the-predictometer)
 
@@ -980,6 +1013,12 @@ streamlit run app.py
 [↑ Back to Top](#the-predictometer)
 
 ## Technologies
+
+- **Python:** This project was built on Python `3.12.8`
+
+- **Streamlit:** For creating the dashboard, see [https://streamlit.io/](https://streamlit.io/)
+
+- **scikit-learn:** Used for machine learning models, see [https://scikit-learn.org/](https://scikit-learn.org/)
 
 - **Github:** The project's source code is hosted on GitHub at [https://github.com/](https://github.com/)
 

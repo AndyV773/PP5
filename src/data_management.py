@@ -16,7 +16,7 @@ def set_cache_expiration():
     return st.session_state.cache_expiration_time
 
 
-@st.cache_data(ttl=1000)
+@st.cache_data(ttl=1000, show_spinner=False)
 def load_live_stock_data(ticker_symbol):
     """
     - Cache for one day (86400 seconds) so data auto refreshes daily
