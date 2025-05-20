@@ -241,17 +241,23 @@ All of the following epics represent high-level user stories guiding the project
 
 ## Hypothesis and how to validate
 
-- 1. The assumption that correlation patterns between date or volume and key market indicators, are strong enough to identify predictive relationships
+**Business Requirement 1**
 
-     - Correlation analysis revealed that neither date nor volume alone demonstrates significant forecasting power for price movement. These features may require deeper feature engineering or interaction with other variables to enhance predictability
+- The assumption that correlation patterns between date or volume and key market indicators, are strong enough to identify predictive relationships
 
-- 2. Historical stock data, including key features like price and volume, can be used in a binary classification model to predict whether tomorrow's average price will be higher or lower than today’s, achieving an accuracy of at least 0.70
+  - Multiple correlation techniques were applied, including heatmaps, Predictive Power Score (PPS), and a smart correlation selection. The smart correlation process suggested that features such as month, weekday, and high had some degree of correlation with the target. However, during model training, feature importance analysis showed that these variables did not contribute significantly to predictive performance. Additionally, the analysis showed that neither volume nor date-related features exhibited strong enough correlation patterns or predictive power to support the hypothesis
 
-     - The model achieved 0.70 accuracy on the training set and 0.70 accuracy on the test set, confirming that historical stock data can effectively predict whether tomorrow's average price will be higher or lower
+**Business Requirement 2**
 
-- 3. A regression model trained on historical stock data can accurately forecast tomorrow's average price, and this forecast can be used to determine the directional change relative to today’s price
+- Historical stock data, including key features like price and volume, can be used in a binary classification model to predict whether tomorrow's average price will be higher or lower than today’s, achieving an accuracy of at least 0.70
 
-     - The regression model trained on historical stock data demonstrates strong predictive performance, achieving an R² of 0.99 on the test set. This indicates that 0.99 of the variance in the average price is accurately captured by the model. Additionally, the low MAE and RMSE confirm precise forecasting with minimal error
+  - The model achieved 0.70 accuracy on the training set and 0.70 accuracy on the test set, confirming that historical stock data can effectively predict whether tomorrow's average price will be higher or lower
+
+**Business Requirement 3**
+
+- A regression model trained on historical stock data can accurately forecast tomorrow's average price, and this forecast can be used to determine the directional change relative to today’s price
+
+  - The regression model trained on historical stock data demonstrates strong predictive performance, achieving an R² of 0.99 on the test set. This indicates that 0.99 of the variance in the average price is accurately captured by the model. Additionally, the low MAE and RMSE confirm precise forecasting with minimal error
 
 [↑ Back to Top](#the-predictometer)
 
@@ -638,7 +644,7 @@ I have created a checkbox that fetches the most recent data for PHNX.L from the 
 <img src="docs/readme_images/live_data_error.jpg">
 </details>
 
-There are four main input widgets for float values: 'open', 'high', 'close', and 'pre_close'. The 'open' and 'close' widgets automatically compute the 'average' value, which then can to run the machine learning forecast
+There are four main input widgets for float values: 'open', 'high', 'close', and 'pre_close'. The 'open' and 'close' widgets automatically compute the 'average' value, after which a button can be clicked to run the machine learning forecast
 
 <details>
 <summary>Forecast Predictometer (Screenshot)</summary>
@@ -661,7 +667,7 @@ This page contains the hypothesis and its validation, with success widgets for c
 
 - The assumption that correlation patterns between date or volume and key market indicators, are strong enough to identify predictive relationships
 
-  - Correlation analysis revealed that neither date nor volume alone demonstrates significant forecasting power for price movement. These features may require deeper feature engineering or interaction with other variables to enhance predictability
+  - Multiple correlation techniques were applied, including heatmaps, Predictive Power Score (PPS), and a smart correlation selection. The smart correlation process suggested that features such as month, weekday, and high had some degree of correlation with the target. However, during model training, feature importance analysis showed that these variables did not contribute significantly to predictive performance. Additionally, the analysis showed that neither volume nor date-related features exhibited strong enough correlation patterns or predictive power to support the hypothesis
 
 **BR2**
 
@@ -889,7 +895,7 @@ For a more in-depth analysis, please refer to the Jupyter Notebooks, which docum
 
 ### Widgets
 
-**The widgets for close, open, pre_close, and high accept values only within the defined ranges:**
+**The widgets for open, high, close, and pre_close accept values only within the defined ranges:**
 
 - Minimum value is 40% of the dataset's minimum
 
@@ -968,7 +974,7 @@ While running the Hyperparameter Optimization Search and selecting the best para
 
 Fork or clone this: [repository](https://github.com/AndyV773/PP5)
 
-- For Streamlit app, setup a `setup.sh` file with the following content:
+- For a Streamlit app, create a `setup.sh` file with the following content:
 
 ```bash
 mkdir -p ~/.streamlit/
@@ -1136,7 +1142,7 @@ streamlit run app.py
 
 - The structure of the README file was inspired by: [https://github.com/linobollansee/property-value-maximizer](https://github.com/linobollansee/property-value-maximizer). However, numerous enhancements and new features have been incorporated to differentiate my work
 
-- A guide that I used for stock analysis provided code for shifting the data to create lag features and to generate a target variable: [https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju](https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju)
+- A guide that I used for stock analysis provided code for shifting the data to create lag features and to generate a target variable: (4:30 - 8:30) [https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju](https://youtu.be/1O_BenficgE?si=8LsF0SGb6HRVZgju)
 
 ### Content
 

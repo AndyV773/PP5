@@ -9,14 +9,20 @@ def page_project_hypothesis_body():
 
     # conclusions taken from "02 - Churned Customer Study" notebook
     st.error("* **The assumption that correlation patterns between "
-             "date or volume and key market indicators, are strong enough to "
-             "identify predictive relationships: Incorrect**")
+             "date or volume and key market indicators, are strong enough "
+             "to identify predictive relationships: Incorrect**")
 
-    st.write("* Correlation analysis revealed that neither date nor volume "
-             "alone demonstrates significant forecasting power for "
-             "price movement. These features may require deeper feature "
-             "engineering or interaction with other variables "
-             "to enhance predictability")
+    st.write("* Multiple correlation techniques were applied, including "
+             "heatmaps, Predictive Power Score (PPS), and a smart "
+             "correlation selection. The smart correlation process "
+             "suggested that features such as month, weekday, and high "
+             "had some degree of correlation with the target. "
+             "However, during model training, feature importance "
+             "analysis showed that these variables did not contribute "
+             "significantly to predictive performance. Additionally, "
+             "the analysis showed that neither volume nor date-related "
+             "features exhibited strong enough correlation patterns "
+             "or predictive power to support the hypothesis")
 
     st.success("* **Historical stock data, including key features like "
                "price and volume, can be used in a binary classification "
