@@ -1,11 +1,10 @@
 import streamlit as st
 import pandas as pd
 import itertools
-from datetime import datetime, timedelta
+from datetime import datetime, timezone
 from src.data_management import (
     load_live_stock_data,
     load_stock_data,
-    set_cache_expiration,
     load_pkl_file)
 from src.machine_learning.predictive_analysis_ui import (
     predict_target,
@@ -75,14 +74,13 @@ def page_forecast_body():
 
     if st.checkbox(f"{ticker} Live Data"):
 
-        df_live, fetch_error = load_live_stock_data(ticker)
+        df_live, expiration_time, fetch_error = load_live_stock_data(ticker)
+        time_left = expiration_time - datetime.now(timezone.utc)
 
-        expiration_time = set_cache_expiration()
-        time_left = expiration_time - datetime.now()
-
-        if time_left > timedelta(0):
-            minutes_left = (time_left.seconds // 60) % 60
-            seconds_left = time_left.seconds % 60
+        if time_left.total_seconds() > 0:
+            total_seconds = int(time_left.total_seconds())
+            minutes_left = (total_seconds // 60) % 60
+            seconds_left = total_seconds % 60
             st.info(f"Data cache is set to 1 hour. "
                     f"Remaining Time To Live: "
                     f"{minutes_left}m {seconds_left}s")
@@ -91,7 +89,6 @@ def page_forecast_body():
 
         if fetch_error:
             st.error(f"❌ Could not fetch data: {str(fetch_error)}")
-
         elif not df_live.empty:
             st.success("Data fetched successfully!")
             latest_date = df_live.index.max()
