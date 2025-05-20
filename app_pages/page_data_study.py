@@ -1,8 +1,8 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 from src.data_management import load_stock_data
-
 sns.set_style("whitegrid")
 
 
@@ -72,6 +72,16 @@ def page_data_study_body():
         st.write(df_clean)
 
     st.write("---")
+
+    st.markdown("### Explore Historical Stock Trends from 2010 to 2025")
+
+    st.write("This interactive chart allows you to view and compare the "
+             "Open, High, Low, and Close prices over the years. "
+             "Use your mouse or touch gestures to zoom, pan, and "
+             "hover over data points, or individually select "
+             "variables for detailed insights")
+
+    interactive_stock_plot(df)
 
     # inspect charts
     st.write("The stock price has remained within a relatively "
@@ -237,3 +247,26 @@ def plot_numerical(df_clean, col, target_var):
                  kde=True, element="step")
     plt.title(f"{col}", fontsize=20, y=1.05)
     st.pyplot(fig)  # st.pyplot() renders image, in notebook is plt.show()
+
+
+def interactive_stock_plot(df):
+    """
+    Plots interactive line chart of stock price metrics
+    over time using Plotly Express
+    """
+    fig = px.line(
+        df,
+        x='date',
+        y=['open', 'close', 'high', 'low'],
+        title='Stock Price Trends Over the Years',
+        labels={'date': 'Year', 'Price': 'Stock Price'}
+    )
+
+    fig.update_layout(
+        xaxis_title='Year',
+        yaxis_title='Stock Price',
+        xaxis=dict(tickformat="%Y"),
+        hovermode='x unified'
+    )
+
+    st.plotly_chart(fig, use_container_width=True)

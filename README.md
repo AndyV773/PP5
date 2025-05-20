@@ -564,7 +564,14 @@ Exploratory data is the data that has been engineered by extracting features suc
 
 #### Stock Charts
 
-The stock charts display the open, close, high, low prices, and trading volume data spanning from 2010 to 2025, providing a comprehensive view of market movements over the years
+An interactive line chart is included to explore stock data in more depth. It displays 0pen, close, high, and low prices from 2010 to 2025. Users can zoom, pan, hover, and toggle variables providing a comprehensive view of market movements over the years
+
+<details>
+<summary>Interactive Stock Chart</summary>
+<img src="docs/readme_images/interactive_chart.jpg">
+</details>
+
+A static line plot that reflects similar trends as the interactive chart, and a bar graph comparing yearly high, low prices, and volume. These image plots offer quick and clear overviews of the data for reference or reporting
 
 <details>
 <summary>Line Chart</summary>
