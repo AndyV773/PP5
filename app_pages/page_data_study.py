@@ -76,7 +76,7 @@ def page_data_study_body():
     st.markdown("### Explore Historical Stock Trends from 2010 to 2025")
 
     st.write("This interactive chart allows you to view and compare the "
-             "Open, High, Low, and Close prices over the years. "
+             "open, high, low, and close prices over the years. "
              "Use your mouse or touch gestures to zoom, pan, and "
              "hover over data points, or individually select "
              "variables for detailed insights")

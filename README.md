@@ -1143,6 +1143,8 @@ streamlit run app.py
 
 - `notebook==7.4.1`: The Jupyter Notebook application for creating and running interactive code notebooks
 
+[↑ Back to Top](#the-predictometer)
+
 ## Credits
 
 - A significantly large portion of the code used in this project was directly sourced from Code Institute: [churnometer](https://github.com/Code-Institute-Solutions/churnometer)
